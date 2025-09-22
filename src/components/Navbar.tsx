@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="w-full fixed top-0 left-0 bg-[#121e28] text-white shadow-md">
+    <nav className="w-full fixed top-0 left-0 bg-[#141414] text-white shadow-md z-1000">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Left side - Name */}
         <div className="text-xl font-bold">
