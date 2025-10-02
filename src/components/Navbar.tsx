@@ -11,8 +11,8 @@ export default function Navbar() {
 
         {/* Right side - Menu */}
         <div className="space-x-8">
-          <Link href="#home" className="hover:text-gray-300">Home</Link>
-          <Link href="#about" className="hover:text-gray-300">About</Link>
+          <Link href="/" className="hover:text-gray-300">Home</Link>
+          <Link href="/about" className="hover:text-gray-300">About</Link>
           <Link href="#projects" className="hover:text-gray-300">Projects</Link>
           <Link href="#contacts" className="hover:text-gray-300">Contacts</Link>
         </div>

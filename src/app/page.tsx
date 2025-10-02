@@ -22,7 +22,7 @@ export default function Home() {
             alt="Anugrah"
             width={400}
             height={400}
-            className="rounded-lg relative z-10"
+            className="object-cover rounded-full shadow-lg"
           />
         </div>
       </section>
