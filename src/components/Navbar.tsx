@@ -2,20 +2,13 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="w-full fixed top-0 left-0 bg-[#141414] text-white shadow-md z-1000">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Left side - Name */}
-        <div className="text-xl font-bold">
-          <Link href="/">Anugrah Ilhami Rizki</Link>
-        </div>
-
-        {/* Right side - Menu */}
-        <div className="space-x-8">
-          <Link href="/" className="hover:text-gray-300">Home</Link>
-          <Link href="/about" className="hover:text-gray-300">About</Link>
-          <Link href="#projects" className="hover:text-gray-300">Projects</Link>
-          <Link href="#contacts" className="hover:text-gray-300">Contacts</Link>
-        </div>
+    <nav className="flex justify-between items-center fixed z-10 w-screen h-16 px-10 backdrop-blur-xs shadow-md shadow-white/10">
+      <Link href="/" className="text-2xl font-bold hover:text-gray-300">Anugrah Ilhami Rizki</Link>
+      <div className="flex text-xl gap-10">
+        <Link href="/" className="hover:text-gray-300">Home</Link>
+        <Link href="/about" className="hover:text-gray-300">About</Link>
+        <Link href="#projects" className="hover:text-gray-300">Projects</Link>
+        <Link href="#contacts" className="hover:text-gray-300">Contacts</Link>
       </div>
     </nav>
   )

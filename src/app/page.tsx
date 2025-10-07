@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#141414] text-white">
+    <main className="min-h-screen">
       {/* Hero Section */}
       <section className="flex flex-col md:flex-row items-center justify-between min-h-screen max-w-6xl mx-auto px-6">
         {/* Left Side Text */}

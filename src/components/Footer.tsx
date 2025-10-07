@@ -9,7 +9,7 @@ export default function Footer() {
       {/* Content: centered as a group, but text on left and buttons on right */}
       <div className="mx-auto flex w-1/2 max-w-2xl items-center justify-center gap-6">
         {/* Left side */}
-        <p className="text-xl font-medium text-white">
+        <p className="text-xl font-medium">
           Want to know more about me?
         </p>
 
