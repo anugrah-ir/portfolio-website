@@ -7,9 +7,9 @@ export default function Footer() {
       <div className="mx-auto mb-6 h-0.5 w-3/4 bg-white"></div>
 
       {/* Content: centered as a group, but text on left and buttons on right */}
-      <div className="mx-auto flex w-1/2 max-w-2xl items-center justify-center gap-6">
+      <div className="mx-auto flex flex-col lg:flex-row w-1/2 max-w-2xl items-center justify-center gap-6">
         {/* Left side */}
-        <p className="text-xl font-medium">
+        <p className="text-xl font-medium whitespace-nowrap">
           Want to know more about me?
         </p>
 
