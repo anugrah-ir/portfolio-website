@@ -20,15 +20,15 @@ export default function Navbar() {
     <div className="flex flex-col fixed w-screen z-10">
       {/* Child flex box 1 */}
       <div className="flex flex-row justify-between items-center h-16 px-5 lg:px-10 backdrop-blur-xs shadow-md shadow-white/10">
-        <Link href="/" className="text-xl lg:text-2xl font-semibold whitespace-nowrap hover:text-gray-300">Anugrah Ilhami Rizki</Link>
+        <Link href="/" className="text-xl lg:text-2xl font-medium whitespace-nowrap hover:text-gray-300">Anugrah Ilhami Rizki</Link>
 
         {/* Desktop */}
         {!isMobile && (
           <div className="flex text-xl font-light gap-10">
             <Link href="/" className="hover:text-gray-300">Home</Link>
             <Link href="/about" className="hover:text-gray-300">About</Link>
-            <Link href="#projects" className="hover:text-gray-300">Projects</Link>
-            <Link href="#contacts" className="hover:text-gray-300">Contacts</Link>
+            <Link href="/projects" className="hover:text-gray-300">Projects</Link>
+            <Link href="/contacts" className="hover:text-gray-300">Contacts</Link>
           </div>
         )}
 
@@ -48,8 +48,8 @@ export default function Navbar() {
         <div className="flex flex-col gap-10 pt-10 pl-10 h-screen text-2xl font-light bg-neutral-950">
           <Link href="/" className="hover:text-gray-300" onClick={closeMenu}>Home</Link>
           <Link href="/about" className="hover:text-gray-300" onClick={closeMenu}>About</Link>
-          <Link href="#projects" className="hover:text-gray-300" onClick={closeMenu}>Projects</Link>
-          <Link href="#contacts" className="hover:text-gray-300" onClick={closeMenu}>Contacts</Link>
+          <Link href="/projects" className="hover:text-gray-300" onClick={closeMenu}>Projects</Link>
+          <Link href="/contacts" className="hover:text-gray-300" onClick={closeMenu}>Contacts</Link>
         </div>
       )}
     </div>
