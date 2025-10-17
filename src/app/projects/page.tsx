@@ -6,17 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-
-const projects = [
-  { id: 1, title: "TTH MyVisitors1", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 2, title: "TTH MyVisitors2", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 3, title: "TTH MyVisitor3", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 4, title: "TTH MyVisitors4", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 5, title: "TTH MyVisitors5", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 6, title: "TTH MyVisitor6", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 7, title: "TTH MyVisitors7", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] },
-  { id: 8, title: "TTH MyVisitors8", description: "A visitor management system with Role-Based Access Control (RBAC).", image: "project-image.png", techStack: ["Node.js", "Express.js", "PostgreSQL", "Sequelize"] }
-];
+import siteData from "@/data/siteData.json";
 
 export default function Project() {
   return (
@@ -55,13 +45,13 @@ export default function Project() {
           }}
           className="w-[70vw] lg:w-[80vw]"
         >
-          {projects.map((project) => (
+          {siteData.projects.map((project, index) => (
             <SwiperSlide
-              key={project.id}
+              key={index}
               style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
               <Link
-                href={`/project/${project.id}`}
+                href={`/project/${project.slug}`}
                 className="group flex flex-col items-center w-full aspect-[3/4] lg:aspect-[16/18] rounded-3xl bg-neutral-900 border border-neutral-700 overflow-hidden transition-all duration-300 hover:bg-neutral-800 hover:border-white hover:border-1"
               >
                 <div className="relative w-full aspect-[16/9] overflow-hidden shadow-2xl shadow-neutral-800">

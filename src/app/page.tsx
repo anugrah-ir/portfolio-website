@@ -1,4 +1,5 @@
 import Image from "next/image";
+import siteData from "@/data/siteData.json";
 
 export default function Home() {
   return (
@@ -8,8 +9,8 @@ export default function Home() {
         {/* Left Side Text */}
         <div className="space-y-4">
           <h1 className="text-6xl font-bold">Hi</h1>
-          <h1 className="text-6xl font-bold">I'm Anugrah</h1>
-          <h2 className="text-4xl font-semibold">Back-End Developer</h2>
+          <h1 className="text-6xl font-bold">I'm {siteData.author.nickName}</h1>
+          <h2 className="text-4xl font-semibold">{siteData.author.role}</h2>
         </div>
 
         {/* Right Side Image */}
@@ -18,7 +19,7 @@ export default function Home() {
           style={{ backgroundImage: "url('/profile-background.png')" }}
         >
           <Image
-            src="/me.png"
+            src={siteData.author.avatar}
             alt="Anugrah"
             width={400}
             height={400}
@@ -33,10 +34,7 @@ export default function Home() {
         className="py-15 max-w-4xl mx-auto px-6 text-left"
       >
         <h2 className="text-5xl font-bold mb-6">About Me</h2>
-        <p className="text-lg leading-relaxed text-gray-300">
-          {/* You can replace this with your own text later */}
-          A Computer Engineering graduate with hands-on experience in Back-End Development. Specializing in developing RESTful APIs using Node.js, Express.js, and relational databases such as PostgreSQL and MySQL. Experienced in some projects such as E-Wallet API, visitor management system, and online learning platform.
-        </p>
+        <p className="text-lg leading-relaxed text-gray-300">{siteData.author.bio}</p>
       </section>
     </main>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import siteData from "@/data/siteData.json";
 
 export default function Footer() {
   return (
@@ -17,7 +18,7 @@ export default function Footer() {
         <div className="flex gap-4">
           {/* Email */}
           <a
-            href="mailto:anugrahilhamirizki@gmail.com"
+            href={siteData.author.social.email}
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
@@ -32,7 +33,7 @@ export default function Footer() {
 
           {/* WhatsApp */}
           <a
-            href="https://wa.me/6281332868781"
+            href={siteData.author.social.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
@@ -47,7 +48,7 @@ export default function Footer() {
 
           {/* GitHub */}
           <a
-            href="https://github.com/anugrah-ir"
+            href={siteData.author.social.github}
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
@@ -62,7 +63,7 @@ export default function Footer() {
 
           {/* LinkedIn */}
           <a
-            href="https://linkedin.com/in/anugrah-ir"
+            href={siteData.author.social.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
@@ -77,7 +78,7 @@ export default function Footer() {
 
           {/* Instagram */}
           <a
-            href="https://instagram.com/anugrahir"
+            href={siteData.author.social.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"

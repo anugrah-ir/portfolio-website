@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import siteData from "@/data/siteData.json"
 
 export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
@@ -20,7 +21,7 @@ export default function Navbar() {
     <div className="flex flex-col fixed w-screen z-10">
       {/* Child flex box 1 */}
       <div className="flex flex-row justify-between items-center h-16 px-5 lg:px-10 backdrop-blur-xs shadow-md shadow-white/10">
-        <Link href="/" className="text-xl lg:text-2xl font-medium whitespace-nowrap hover:text-gray-300">Anugrah Ilhami Rizki</Link>
+        <Link href="/" className="text-xl lg:text-2xl font-medium whitespace-nowrap hover:text-gray-300">{siteData.author.name}</Link>
 
         {/* Desktop */}
         {!isMobile && (
