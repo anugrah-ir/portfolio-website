@@ -1,0 +1,75 @@
+{
+  "site": {
+    "title": "John Doe - Fullstack Developer",
+    "description": "A fullstack developer. Specializes in MERN stack.",
+    "favicon": "/favicon.ico" 
+  },
+  "author": {
+    "name": "John Doe",
+    "nickName": "John",
+    "role": "Fullstack Developer",
+    "bio": "I'm a fullstack developer 3 years of work experience.",
+    "avatar": "/me.png",
+    "social": {
+      "email": "mailto:johndoe@gmail.com",
+      "whatsapp": "https://wa.me/123456789",
+      "github": "https://github.com/johndoe",
+      "linkedin": "https://linkedin.com/in/johndoe",
+      "instagram": "https://instagram.com/johndoe"
+    },
+    "techStack": [
+      "HTML",
+      "CSS",
+      "Tailwind CSS",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "MongoDB",
+      "Docker"
+    ]
+  },
+  "projects": [
+    {
+      "title": "Project A",
+      "slug": "project-a",
+      "description": "A website with a lot of features",
+      "githubRepo": "https://github.com/johndoe/project-a",
+      "liveDemo": "https://project-a.vercel.app",
+      "images": ["project-a-homepage.png", "project-a-dashboard"],
+      "techStack": ["React", "Node.js", "Express.js", "PostgreSQL"],
+      "keyFeatures": [
+        {
+          "feature": "Responsive Layout",
+          "description": "Fully responsive mobile-first layout using Tailwind CSS's breakpoints"
+        },
+        {
+          "feature": "Seamless Authentication",
+          "description": "Secure user authentication using JWT and OAuth 2.0"
+        }
+      ]
+    },
+    {
+      "title": "Project B",
+      "slug": "project-b",
+      "description": "A website with a lot of features",
+      "githubRepo": "https://github.com/johndoe/project-b",
+      "liveDemo": "https://project-b.vercel.app",
+      "images": ["project-b-homepage.png", "project-b-dashboard"],
+      "techStack": ["React", "Node.js", "Express.js", "PostgreSQL"],
+      "keyFeatures": [
+        {
+          "feature": "Responsive Layout",
+          "description": "Fully responsive mobile-first layout using Tailwind CSS's breakpoints"
+        },
+        {
+          "feature": "Seamless Authentication",
+          "description": "Secure user authentication using JWT and OAuth 2.0"
+        }
+      ]
+    }
+  ]
+}
