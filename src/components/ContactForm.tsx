@@ -2,7 +2,24 @@
 
 import Form from "next/form";
 import { useState } from "react";
+import { useFormStatus } from "react-dom";
 import { sendEmail } from "@/app/contact/actions";
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <button
+            type="submit"
+            disabled={pending}
+            className={`self-center bg-neutral-800 border border-neutral-600 px-3 py-2 rounded-lg hover:border-neutral-500 hover:text-gray-300 hover:cursor-pointer ${
+                pending ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+        >
+            {pending ? "Sending..." : "Send Message"}
+        </button>
+    );
+}
 
 export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -65,12 +82,7 @@ export default function ContactForm() {
                 />
             </div>
 
-            <button
-                type="submit"
-                className="self-center bg-neutral-800 border border-neutral-600 px-3 py-2 rounded-lg"
-            >
-                Send Message
-            </button>
+            <SubmitButton />
 
             {status !== "idle" && (
                 <p
