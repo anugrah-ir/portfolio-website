@@ -4,6 +4,19 @@ import Form from "next/form";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { sendEmail } from "@/app/contact/actions";
+import { z } from "zod";
+
+const contactFormSchema = z.object({
+    name: z.string().min(1, "Name is required").min(2, "Name must be at least 2 characters"),
+    email: z.email("Please enter a valid email address"),
+    message: z.string().min(1, "Message is required").min(10, "Message must be at least 10 characters"),
+});
+
+type ValidationErrors = {
+    name?: string;
+    email?: string;
+    message?: string;
+};
 
 function SubmitButton() {
     const { pending } = useFormStatus();
@@ -24,8 +37,40 @@ function SubmitButton() {
 export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [message, setMessage] = useState("");
+    const [errors, setErrors] = useState<ValidationErrors>({});
+    const [formValues, setFormValues] = useState({
+        name: "",
+        email: "",
+        message: "",
+    });
 
     async function handleSubmit(formData: FormData) {
+        setErrors({});
+        setStatus("idle");
+        setMessage("");
+
+        const formValues = {
+            name: formData.get("name") as string,
+            email: formData.get("email") as string,
+            message: formData.get("message") as string,
+        };
+
+        try {
+            contactFormSchema.parse(formValues);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                const fieldErrors: ValidationErrors = {};
+                error.issues.forEach((issue) => {
+                    const field = issue.path[0] as keyof ValidationErrors;
+                    if (!fieldErrors[field]) {
+                        fieldErrors[field] = issue.message;
+                    }
+                });
+                setErrors(fieldErrors);
+                return;
+            }
+        }
+
         try {
             const result = await sendEmail(formData);
             if (result?.success) {
@@ -58,8 +103,13 @@ export default function ContactForm() {
                     name="name"
                     type="text"
                     required={true}
+                    value={formValues.name}
+                    onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
                     className="w-full p-2 bg-neutral-900 rounded-md border border-neutral-700"
                 />
+                {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                )}
             </div>
 
             <div className="flex flex-col w-full gap-2">
@@ -68,8 +118,13 @@ export default function ContactForm() {
                     name="email"
                     type="email"
                     required={true}
+                    value={formValues.email}
+                    onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
                     className="w-full p-2 bg-neutral-900 rounded-md border border-neutral-700"
                 />
+                {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
             </div>
 
             <div className="flex flex-col w-full gap-2">
@@ -78,8 +133,13 @@ export default function ContactForm() {
                     name="message"
                     rows={5}
                     required={true}
+                    value={formValues.message}
+                    onChange={(e) => setFormValues({ ...formValues, message: e.target.value })}
                     className="w-full p-2 resize-none bg-neutral-900 rounded-md border border-neutral-700"
                 />
+                {errors.message && (
+                    <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                )}
             </div>
 
             <SubmitButton />
