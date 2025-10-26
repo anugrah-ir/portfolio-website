@@ -90,7 +90,7 @@ export default function ContactForm() {
 
         <Form
             action={handleSubmit}
-            className="flex flex-col items-start gap-5 p-5 w-full lg:w-1/2 rounded-3xl bg-neutral-900 border border-neutral-800"
+            className="flex flex-col items-start gap-5 p-5 w-full lg:w-2/5 rounded-3xl bg-neutral-900 border border-neutral-800"
         >
 
             <h2 className="self-center text-xl font-semibold">
