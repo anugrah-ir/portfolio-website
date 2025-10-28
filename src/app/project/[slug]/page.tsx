@@ -10,9 +10,32 @@ import 'swiper/css/pagination';
 import { ArrowUpRight, ChevronRight, Cpu, Sparkles } from "lucide-react";
 import siteData from "@/data/siteData.json";
 
-const project = siteData.projects[0];
+interface Project {
+    title: string
+    slug: string
+    description: string
+    githubRepo: string
+    liveDemo: string
+    images: string[]
+    techStack: string[]
+    keyFeatures: {
+        feature: string
+        description: string
+    }[]
+}
 
-export default function Project() {
+interface PageProps {
+  params: {
+    slug: string
+  }
+}
+
+export default function Project({ params }: PageProps) {
+    const { slug } = params
+    const project = siteData.projects.find((p) => p.slug === slug)
+    if (!project) {
+        return <h1>Project not found</h1>
+    }
 
     const [openIndices, setOpenIndices] = useState<number[]>([]);
 

@@ -56,7 +56,7 @@ export default function Project() {
               >
                 <div className="relative w-full aspect-[16/9] overflow-hidden shadow-2xl shadow-neutral-800">
                   <Image
-                    src={`/${project.images[1]}`}
+                    src={`/${project.images[0]}`}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
