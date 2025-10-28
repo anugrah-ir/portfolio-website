@@ -1,0 +1,93 @@
+{
+  "site": {
+    "title": "Anugrah Ilhami Rizki",
+    "description": "Fullstack web developer. Specializes in React, Next.js, Node.js, Express.js, and PostgreSQL.",
+    "favicon": "/favicon.ico" 
+  },
+  "author": {
+    "name": "Anugrah Ilhami Rizki",
+    "nickName": "Anugrah",
+    "role": "Fullstack Developer",
+    "bio": "A Computer Engineering graduate with hands-on experience in Web Development. Specializing in developing responsive website using React, Next.js, and Tailwind CSS, and developing RESTful APIs using Node.js, Express.js, and relational databases such as PostgreSQL and MySQL. Experienced in some projects such as portfolio website template, visitor management system, and online learning platform.",
+    "avatar": "/me.png",
+    "social": {
+      "email": "mailto:anugrahilhamirizki@gmail.com",
+      "whatsapp": "https://wa.me/6281332868781",
+      "github": "https://github.com/anugrah-ir",
+      "linkedin": "https://linkedin.com/in/anugrah-ir",
+      "instagram": "https://instagram.com/anugrahir"
+    },
+    "techStack": [
+      "HTML",
+      "CSS",
+      "Tailwind CSS",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "MySQL"
+    ]
+  },
+  "projects": [
+    {
+      "title": "Portfolio Website Template",
+      "slug": "portfolio-website-template",
+      "description": "A responsive portfolio website template for software developers.",
+      "githubRepo": "https://github.com/anugrah-ir/portfolio-website",
+      "liveDemo": "https://anugrahilhamirizki.vercel.app",
+      "images": ["portfolio-website-template-1.png", "portfolio-website-template-2.png", "portfolio-website-template-3.png", "portfolio-website-template-4.png"],
+      "techStack": ["React", "Next.js", "Tailwind CSS"],
+      "keyFeatures": [
+        {
+          "feature": "Responsive Layout",
+          "description": "Fully responsive mobile-first layout using Tailwind CSS's breakpoints"
+        },
+        {
+          "feature": "Send Email via Contact Form",
+          "description": "Contact form that sends an email to upon submission using Nodemailer"
+        }
+      ]
+    },
+    {
+      "title": "TTH MyVisitors",
+      "slug": "tth-my-visitors",
+      "description": " A visitor check-in system with Role-Based Access Control (RBAC).",
+      "githubRepo": "https://github.com/anugrah-ir/tth-my-visitors-backend",
+      "liveDemo": "https://anugrahilhamirizki.vercel.app",
+      "images": ["tth-myvisitors-1.png", "tth-myvisitors-2.png", "tth-myvisitors-3.png"],
+      "techStack": ["Node.js", "Express.js", "MySQL"],
+      "keyFeatures": [
+        {
+          "feature": "Role-Based Access Control (RBAC)",
+          "description": "Secure access control that can accomodate multiple roles with JWT authentication"
+        },
+        {
+          "feature": "Admin Dashboard",
+          "description": "Admin can view and manage visitor data, add new access, or revoke access"
+        }
+      ]
+    },
+    {
+      "title": "Cultour",
+      "slug": "cultour",
+      "description": " An E-Learning platform with video-based courses and online quizzes",
+      "githubRepo": "https://github.com/anugrah-ir/cultour-backend",
+      "liveDemo": "https://cultour1.vercel.app",
+      "images": ["cultour-1.png", "cultour-2.png"],
+      "techStack": ["Node.js", "Express.js", "MySQL"],
+      "keyFeatures": [
+        {
+          "feature": "Online Quiz",
+          "description": "Automatic quiz submission grading"
+        },
+        {
+          "feature": "Content Management System (CMS)",
+          "description": "Educator can manage education content such as articles and media."
+        }
+      ]
+    }
+  ]
+}

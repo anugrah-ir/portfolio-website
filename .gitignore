@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 # site data
-src/data/siteData.json
+# src/data/siteData.json
