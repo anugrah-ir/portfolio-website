@@ -1,13 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import { ArrowUpRight, ChevronRight, Cpu, Sparkles } from "lucide-react";
+import { ArrowUpRight, Cpu } from "lucide-react";
+import Slider from "@/components/Slider";
+import KeyFeatures from "@/components/KeyFeatures";
 import siteData from "@/data/siteData.json";
 
 interface Project {
@@ -25,25 +20,17 @@ interface Project {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function Project({ params }: PageProps) {
-  const { slug } = params;
+export default async function Project({ params }: PageProps) {
+  const { slug } = await params;
   const project = siteData.projects.find((p) => p.slug === slug);
   if (!project) {
     return <h1>Project not found</h1>;
   }
-
-  const [openIndices, setOpenIndices] = useState<number[]>([]);
-
-  const toggleIndex = (index: number) => {
-    setOpenIndices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
-    );
-  };
 
   return (
     <div className="flex w-full flex-col items-start gap-8 px-10 pt-10 lg:px-32">
@@ -102,78 +89,10 @@ export default function Project({ params }: PageProps) {
         </ul>
       </section>
 
-      <section className="w-full lg:w-4/5">
-        <Swiper
-          modules={[Autoplay, Pagination]}
-          slidesPerView={1}
-          spaceBetween={32}
-          loop={true}
-          speed={2000}
-          effect="fade"
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={true}
-        >
-          {project.images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <div className="relative aspect-video overflow-hidden rounded-2xl border border-neutral-500 lg:rounded-4xl">
-                <Image
-                  src={`/${image}`}
-                  fill={true}
-                  alt={`${project.title} screenshot ${index + 1}`}
-                  loading="lazy"
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </section>
+      <Slider images={project.images} title={project.title} />
 
-      <section id="key-features" className="flex flex-col gap-4">
-        <div className="flex flex-row items-center gap-3">
-          <Sparkles className="h-6 w-6 lg:h-8 lg:w-8" />
-          <h2 className="text-lg font-medium lg:text-2xl">Key Features</h2>
-        </div>
-        <ul className="w-full max-w-2xl rounded-xl border border-neutral-800 bg-neutral-900 text-neutral-200">
-          {project.keyFeatures.map((keyFeature, index) => {
-            const isOpen = openIndices.includes(index);
-            return (
-              <li
-                key={index}
-                className="overflow-hidden border-b border-neutral-800 px-4 last:border-none"
-              >
-                <button
-                  onClick={() => toggleIndex(index)}
-                  className="flex w-full items-center gap-5 py-3"
-                >
-                  <ChevronRight
-                    className={`h-4 w-4 transform text-neutral-400 transition-transform duration-300 lg:h-6 lg:w-6 ${
-                      isOpen ? "rotate-90" : ""
-                    }`}
-                  />
-                  <div className="flex items-center gap-2">
-                    <span className="lg:text-md text-sm font-medium">
-                      {keyFeature.feature}
-                    </span>
-                  </div>
-                </button>
+      <KeyFeatures keyFeatures={project.keyFeatures} />
 
-                <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? "max-h-100 opacity-100" : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="pb-4 text-sm text-neutral-400">
-                    {keyFeature.description}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
     </div>
   );
 }
