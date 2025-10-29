@@ -18,19 +18,19 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="flex flex-col fixed w-screen z-10">
+    <div className="fixed z-10 flex w-screen flex-col">
       {/* Child flex box 1 */}
-      <div className="flex flex-row justify-between items-center h-16 px-5 lg:px-10 backdrop-blur-xs shadow-md shadow-white/10">
+      <div className="flex h-16 flex-row items-center justify-between px-5 shadow-md shadow-white/10 backdrop-blur-xs lg:px-10">
         <Link
           href="/"
-          className="text-xl lg:text-2xl font-medium whitespace-nowrap hover:text-gray-300"
+          className="text-xl font-medium whitespace-nowrap hover:text-gray-300 lg:text-2xl"
         >
           {siteData.author.name}
         </Link>
 
         {/* Desktop */}
         {!isMobile && (
-          <div className="flex text-xl font-light gap-10">
+          <div className="flex gap-10 text-xl font-light">
             <Link href="/" className="hover:text-gray-300">
               Home
             </Link>
@@ -49,7 +49,7 @@ export default function Navbar() {
         {/* Mobile */}
         {isMobile && (
           <div
-            className="lg:hidden text-gray-200 hover:text-gray-400 cursor-pointer"
+            className="cursor-pointer text-gray-200 hover:text-gray-400 lg:hidden"
             onClick={() => setMenuOpen((prev) => !prev)}
           >
             {menuOpen ? <X size={32} /> : <Menu size={32} />}
@@ -59,7 +59,7 @@ export default function Navbar() {
 
       {/* Child flex box 2 — hidden on desktop */}
       {isMobile && menuOpen && (
-        <div className="flex flex-col gap-10 pt-10 pl-10 h-screen text-2xl font-light bg-neutral-950">
+        <div className="flex h-screen flex-col gap-10 bg-neutral-950 pt-10 pl-10 text-2xl font-light">
           <Link href="/" className="hover:text-gray-300" onClick={closeMenu}>
             Home
           </Link>

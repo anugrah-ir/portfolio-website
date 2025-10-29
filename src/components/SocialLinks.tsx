@@ -4,7 +4,7 @@ import siteData from "@/data/siteData.json";
 
 export default function SocialLinks() {
   return (
-    <div className="flex flex-col items-start gap-8 p-5 w-full lg:w-2/5 rounded-3xl bg-neutral-900 border border-neutral-800">
+    <div className="flex w-full flex-col items-start gap-8 rounded-3xl border border-neutral-800 bg-neutral-900 p-5 lg:w-2/5">
       <h2 className="self-center text-xl font-semibold">
         Reach Me Out Via My Socials
       </h2>
@@ -12,19 +12,19 @@ export default function SocialLinks() {
         href={siteData.author.social.email}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-row justify-start items-center w-full px-5 py-3 gap-5 rounded-xl bg-neutral-800 border border-neutral-700"
+        className="flex w-full flex-row items-center justify-start gap-5 rounded-xl border border-neutral-700 bg-neutral-800 px-5 py-3"
       >
-        <Mail className="w-8 h-8" />
-        <p className="text-xl font-base">Email</p>
+        <Mail className="h-8 w-8" />
+        <p className="font-base text-xl">Email</p>
       </Link>
       <Link
         href={siteData.author.social.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-row justify-start items-center w-full px-5 py-3 gap-5 rounded-xl bg-neutral-800 border border-neutral-700"
+        className="flex w-full flex-row items-center justify-start gap-5 rounded-xl border border-neutral-700 bg-neutral-800 px-5 py-3"
       >
-        <Linkedin className="w-8 h-8" />
-        <p className="text-xl font-base">LinkedIn</p>
+        <Linkedin className="h-8 w-8" />
+        <p className="font-base text-xl">LinkedIn</p>
       </Link>
     </div>
   );

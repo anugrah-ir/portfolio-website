@@ -31,8 +31,8 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className={`self-center bg-neutral-800 border border-neutral-600 px-3 py-2 rounded-lg hover:border-neutral-500 hover:text-gray-300 hover:cursor-pointer ${
-        pending ? "opacity-50 cursor-not-allowed" : ""
+      className={`self-center rounded-lg border border-neutral-600 bg-neutral-800 px-3 py-2 hover:cursor-pointer hover:border-neutral-500 hover:text-gray-300 ${
+        pending ? "cursor-not-allowed opacity-50" : ""
       }`}
     >
       {pending ? "Sending..." : "Send Message"}
@@ -95,11 +95,11 @@ export default function ContactForm() {
   return (
     <Form
       action={handleSubmit}
-      className="flex flex-col items-start gap-5 p-5 w-full lg:w-2/5 rounded-3xl bg-neutral-900 border border-neutral-800"
+      className="flex w-full flex-col items-start gap-5 rounded-3xl border border-neutral-800 bg-neutral-900 p-5 lg:w-2/5"
     >
       <h2 className="self-center text-xl font-semibold">Fill Out This Form</h2>
 
-      <div className="flex flex-col w-full gap-2">
+      <div className="flex w-full flex-col gap-2">
         <label className="text-xl font-medium">Name</label>
         <input
           name="name"
@@ -109,14 +109,14 @@ export default function ContactForm() {
           onChange={(e) =>
             setFormValues({ ...formValues, name: e.target.value })
           }
-          className="w-full p-2 bg-neutral-900 rounded-md border border-neutral-700"
+          className="w-full rounded-md border border-neutral-700 bg-neutral-900 p-2"
         />
         {errors.name && (
-          <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+          <p className="mt-1 text-sm text-red-500">{errors.name}</p>
         )}
       </div>
 
-      <div className="flex flex-col w-full gap-2">
+      <div className="flex w-full flex-col gap-2">
         <label className="text-xl font-medium">Email</label>
         <input
           name="email"
@@ -126,14 +126,14 @@ export default function ContactForm() {
           onChange={(e) =>
             setFormValues({ ...formValues, email: e.target.value })
           }
-          className="w-full p-2 bg-neutral-900 rounded-md border border-neutral-700"
+          className="w-full rounded-md border border-neutral-700 bg-neutral-900 p-2"
         />
         {errors.email && (
-          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+          <p className="mt-1 text-sm text-red-500">{errors.email}</p>
         )}
       </div>
 
-      <div className="flex flex-col w-full gap-2">
+      <div className="flex w-full flex-col gap-2">
         <label className="text-xl font-medium">Message</label>
         <textarea
           name="message"
@@ -143,10 +143,10 @@ export default function ContactForm() {
           onChange={(e) =>
             setFormValues({ ...formValues, message: e.target.value })
           }
-          className="w-full p-2 resize-none bg-neutral-900 rounded-md border border-neutral-700"
+          className="w-full resize-none rounded-md border border-neutral-700 bg-neutral-900 p-2"
         />
         {errors.message && (
-          <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+          <p className="mt-1 text-sm text-red-500">{errors.message}</p>
         )}
       </div>
 
@@ -154,7 +154,7 @@ export default function ContactForm() {
 
       {status !== "idle" && (
         <p
-          className={`self-center text-sm lg:text-md mt-2 ${
+          className={`lg:text-md mt-2 self-center text-sm ${
             status === "success" ? "text-green-500" : "text-red-500"
           }`}
         >

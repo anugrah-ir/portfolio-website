@@ -11,17 +11,17 @@ import siteData from "@/data/siteData.json";
 export default function Project() {
   return (
     <>
-      <section className="flex flex-row justify-center items-center pt-10">
-        <h1 className="text-3xl lg:text-4xl font-medium">
+      <section className="flex flex-row items-center justify-center pt-10">
+        <h1 className="text-3xl font-medium lg:text-4xl">
           My Portfolio Projects
         </h1>
       </section>
 
-      <section className="flex flex-row justify-center items-center px-1 lg:px-10 pt-10">
+      <section className="flex flex-row items-center justify-center px-1 pt-10 lg:px-10">
         <button className="custom-prev">
           <ChevronLeft
             size={64}
-            className="cursor-pointer hover:opacity-50 transition"
+            className="cursor-pointer transition hover:opacity-50"
           />
         </button>
 
@@ -57,9 +57,9 @@ export default function Project() {
             >
               <Link
                 href={`/project/${project.slug}`}
-                className="group flex flex-col items-center w-full aspect-[3/4] lg:aspect-[16/18] rounded-3xl bg-neutral-900 border border-neutral-700 overflow-hidden transition-all duration-300 hover:bg-neutral-800 hover:border-white hover:border-1"
+                className="group flex aspect-[3/4] w-full flex-col items-center overflow-hidden rounded-3xl border border-neutral-700 bg-neutral-900 transition-all duration-300 hover:border-1 hover:border-white hover:bg-neutral-800 lg:aspect-[16/18]"
               >
-                <div className="relative w-full aspect-[16/9] overflow-hidden shadow-2xl shadow-neutral-800">
+                <div className="relative aspect-[16/9] w-full overflow-hidden shadow-2xl shadow-neutral-800">
                   <Image
                     src={`/${project.images[0]}`}
                     alt={project.title}
@@ -68,17 +68,17 @@ export default function Project() {
                   />
                 </div>
                 <div className="flex flex-col gap-4 p-4">
-                  <h3 className="text-center text-sm lg:text-md font-semibold">
+                  <h3 className="lg:text-md text-center text-sm font-semibold">
                     {project.title}
                   </h3>
-                  <p className="text-xs lg:text-sm text-neutral-200">
+                  <p className="text-xs text-neutral-200 lg:text-sm">
                     {project.description}
                   </p>
                   <ul className="flex flex-wrap gap-2">
                     {project.techStack.map((tech, index) => (
                       <li
                         key={index}
-                        className="rounded-lg bg-neutral-800 text-xs lg:text-sm text-bold p-2"
+                        className="text-bold rounded-lg bg-neutral-800 p-2 text-xs lg:text-sm"
                       >
                         {tech}
                       </li>
@@ -93,7 +93,7 @@ export default function Project() {
         <button className="custom-next">
           <ChevronRight
             size={64}
-            className="cursor-pointer hover:opacity-50 transition"
+            className="cursor-pointer transition hover:opacity-50"
           />
         </button>
       </section>
