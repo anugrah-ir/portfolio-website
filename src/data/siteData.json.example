@@ -2,7 +2,7 @@
   "site": {
     "title": "John Doe - Fullstack Developer",
     "description": "A fullstack developer. Specializes in MERN stack.",
-    "favicon": "/favicon.ico" 
+    "favicon": "/favicon.ico"
   },
   "author": {
     "name": "John Doe",

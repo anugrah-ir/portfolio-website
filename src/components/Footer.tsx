@@ -23,12 +23,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
           >
-            <Image
-              src="/email.png"
-              alt="Email"
-              width={20}
-              height={20}
-            />
+            <Image src="/email.png" alt="Email" width={20} height={20} />
           </a>
 
           {/* WhatsApp */}
@@ -38,12 +33,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
           >
-            <Image
-              src="/whatsapp.png"
-              alt="WhatsApp"
-              width={20}
-              height={20}
-            />
+            <Image src="/whatsapp.png" alt="WhatsApp" width={20} height={20} />
           </a>
 
           {/* GitHub */}
@@ -53,12 +43,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
           >
-            <Image
-              src="/github.png"
-              alt="GitHub"
-              width={20}
-              height={20}
-            />
+            <Image src="/github.png" alt="GitHub" width={20} height={20} />
           </a>
 
           {/* LinkedIn */}
@@ -68,12 +53,7 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-white transition hover:scale-105"
           >
-            <Image
-              src="/linkedin.png"
-              alt="LinkedIn"
-              width={20}
-              height={20}
-            />
+            <Image src="/linkedin.png" alt="LinkedIn" width={20} height={20} />
           </a>
 
           {/* Instagram */}

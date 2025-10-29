@@ -2,7 +2,7 @@
   "site": {
     "title": "Anugrah Ilhami Rizki",
     "description": "Fullstack web developer. Specializes in React, Next.js, Node.js, Express.js, and PostgreSQL.",
-    "favicon": "/favicon.ico" 
+    "favicon": "/favicon.ico"
   },
   "author": {
     "name": "Anugrah Ilhami Rizki",
@@ -38,7 +38,12 @@
       "description": "A responsive portfolio website template for software developers.",
       "githubRepo": "https://github.com/anugrah-ir/portfolio-website",
       "liveDemo": "https://anugrahilhamirizki.vercel.app",
-      "images": ["portfolio-website-template-1.png", "portfolio-website-template-2.png", "portfolio-website-template-3.png", "portfolio-website-template-4.png"],
+      "images": [
+        "portfolio-website-template-1.png",
+        "portfolio-website-template-2.png",
+        "portfolio-website-template-3.png",
+        "portfolio-website-template-4.png"
+      ],
       "techStack": ["React", "Next.js", "Tailwind CSS"],
       "keyFeatures": [
         {
@@ -57,7 +62,11 @@
       "description": " A visitor check-in system with Role-Based Access Control (RBAC).",
       "githubRepo": "https://github.com/anugrah-ir/tth-my-visitors-backend",
       "liveDemo": "https://anugrahilhamirizki.vercel.app",
-      "images": ["tth-myvisitors-1.png", "tth-myvisitors-2.png", "tth-myvisitors-3.png"],
+      "images": [
+        "tth-myvisitors-1.png",
+        "tth-myvisitors-2.png",
+        "tth-myvisitors-3.png"
+      ],
       "techStack": ["Node.js", "Express.js", "MySQL"],
       "keyFeatures": [
         {

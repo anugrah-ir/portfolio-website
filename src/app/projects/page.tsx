@@ -1,22 +1,23 @@
-"use client"
-import Link from 'next/link';
-import Image from 'next/image';
+"use client";
+import Link from "next/link";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import siteData from "@/data/siteData.json";
 
 export default function Project() {
   return (
     <>
       <section className="flex flex-row justify-center items-center pt-10">
-        <h1 className="text-3xl lg:text-4xl font-medium">My Portfolio Projects</h1>
+        <h1 className="text-3xl lg:text-4xl font-medium">
+          My Portfolio Projects
+        </h1>
       </section>
 
       <section className="flex flex-row justify-center items-center px-1 lg:px-10 pt-10">
-
         <button className="custom-prev">
           <ChevronLeft
             size={64}
@@ -27,8 +28,8 @@ export default function Project() {
         <Swiper
           modules={[Navigation]}
           navigation={{
-            nextEl: '.custom-next',
-            prevEl: '.custom-prev',
+            nextEl: ".custom-next",
+            prevEl: ".custom-prev",
           }}
           loop
           slidesPerView={1}
@@ -36,19 +37,23 @@ export default function Project() {
           breakpoints={{
             768: {
               slidesPerView: 2,
-              spaceBetween: 25
+              spaceBetween: 25,
             },
             1024: {
               slidesPerView: 3,
-              spaceBetween: 20
-            }
+              spaceBetween: 20,
+            },
           }}
           className="w-[70vw] lg:w-[80vw]"
         >
           {siteData.projects.map((project, index) => (
             <SwiperSlide
               key={index}
-              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               <Link
                 href={`/project/${project.slug}`}
@@ -91,7 +96,6 @@ export default function Project() {
             className="cursor-pointer hover:opacity-50 transition"
           />
         </button>
-
       </section>
     </>
   );
