@@ -92,7 +92,6 @@ export default async function Project({ params }: PageProps) {
       <Slider images={project.images} title={project.title} />
 
       <KeyFeatures keyFeatures={project.keyFeatures} />
-
     </div>
   );
 }

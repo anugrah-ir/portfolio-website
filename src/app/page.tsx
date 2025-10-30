@@ -10,7 +10,7 @@ export default function Home() {
         <div className="space-y-4">
           <h1 className="text-4xl font-bold lg:text-6xl">Hi</h1>
           <h1 className="text-4xl font-bold lg:text-6xl">
-            I'm {siteData.author.nickName}
+            I&apos;m {siteData.author.nickName}
           </h1>
           <h2 className="text-3xl font-semibold lg:text-4xl">
             {siteData.author.role}
