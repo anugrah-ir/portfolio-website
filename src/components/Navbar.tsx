@@ -37,8 +37,8 @@ export default function Navbar() {
             <Link href="/about" className="hover:text-gray-300">
               About
             </Link>
-            <Link href="/projects" className="hover:text-gray-300">
-              Projects
+            <Link href="/project" className="hover:text-gray-300">
+              Project
             </Link>
             <Link href="/contact" className="hover:text-gray-300">
               Contacts
@@ -71,11 +71,11 @@ export default function Navbar() {
             About
           </Link>
           <Link
-            href="/projects"
+            href="/project"
             className="hover:text-gray-300"
             onClick={closeMenu}
           >
-            Projects
+            Project
           </Link>
           <Link
             href="/contact"
