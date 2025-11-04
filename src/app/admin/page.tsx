@@ -4,7 +4,7 @@ import SiteForm from "@/components/SiteForm";
 export default async function Admin() {
   let site = await prisma.site.findFirst();
   if (!site) {
-      site = {
+    site = {
       id: 1,
       title: "",
       description: "",
