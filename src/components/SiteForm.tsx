@@ -1,7 +1,7 @@
 "use client";
 import Form from "next/form";
 import { useState } from "react";
-import { updateSite } from "@/app/admin/actions";
+import { updateSite, uploadFile } from "@/app/admin/actions";
 
 interface Site {
   id: number;
@@ -65,11 +65,30 @@ export default function SiteForm({ site }: SiteFormProps) {
     }
   };
 
+  const [uploading, setUploading] = useState(false);
+  const [result, setResult] = useState<string>("");
+
+  async function handleSubmit(formData: FormData) {
+    setUploading(true);
+    setResult("");
+
+    try {
+      const url = await uploadFile(formData);
+      setResult(`File uploaded successfully! URL: ${url}`);
+    } catch (error) {
+      setResult(
+        `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <div className="flex w-[80vw] flex-col gap-5 rounded-2xl border border-neutral-700 bg-neutral-900 p-5 lg:w-[50vw] lg:gap-10 lg:rounded-4xl lg:p-10">
       <h2 className="font-base text-xl lg:text-3xl">Site</h2>
 
-      <Form action={handleSubmit} className="flex flex-col gap-3 lg:gap-6">
+      <div className="flex flex-col gap-3 lg:gap-6">
         <div className="flex flex-col gap-1 lg:gap-2">
           <label className="text-md lg:text-xl">Title</label>
           <p className="text-sm text-neutral-300 lg:text-lg">
@@ -146,7 +165,7 @@ export default function SiteForm({ site }: SiteFormProps) {
           <p className="text-sm text-neutral-300 lg:text-lg">
             The icon of your website, visible on the tab bar
           </p>
-          <input
+          {/* <input
             name="favicon"
             type="text"
             value={formData.favicon}
@@ -154,16 +173,28 @@ export default function SiteForm({ site }: SiteFormProps) {
               setFormData({ ...formData, favicon: e.target.value })
             }
             className="mt-2 rounded-md border border-neutral-600 bg-neutral-800 px-3 py-2 text-sm lg:rounded-lg lg:text-lg"
-          />
+          /> */}
         </div>
 
-        <button
+        <form action={handleSubmit} className="space-y-4">
+          <input type="file" name="file" required className="block" />
+          <button
+            type="submit"
+            disabled={uploading}
+            className="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
+          >
+            {uploading ? "Uploading..." : "Upload"}
+          </button>
+        </form>
+        {result && <div className="mt-4 rounded p-4">{result}</div>}
+
+        {/* <button
           type="submit"
           className="text-md mt-5 self-center rounded-xl border border-neutral-600 bg-neutral-800 px-3 py-2 hover:cursor-pointer hover:border-neutral-500 hover:bg-neutral-700 hover:text-neutral-300 lg:text-xl"
         >
           Save
-        </button>
-      </Form>
+        </button> */}
+      </div>
     </div>
   );
 }
