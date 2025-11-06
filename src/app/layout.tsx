@@ -4,7 +4,10 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getSite } from "./admin/actions";
 import siteData from "@/data/siteData.json";
+
+const site = getSite();
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,13 +19,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: siteData.site.title,
-  description: siteData.site.description,
-  icons: {
-    icon: siteData.site.favicon,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { success, site } = await getSite();
+
+  if (!success || !site) {
+    return {
+      title: "Default Title",
+      description: "Default Description",
+      icons: {
+        icon: "/favicon.ico",
+      },
+    };
+  }
+
+  return {
+    title: site.title,
+    description: site.description,
+    icons: {
+      icon: site.favicon,
+    },
+  };
+}
 
 export default function RootLayout({
   children,

@@ -1,11 +1,12 @@
 import prisma from "../../../lib/prisma";
 import SiteForm from "@/components/SiteForm";
+import { getSite } from "./actions";
 
 export default async function Admin() {
-  let site = await prisma.site.findFirst();
-  if (!site) {
+  let { success, site } = await getSite();
+
+  if (!success || !site) {
     site = {
-      id: 1,
       title: "",
       description: "",
       favicon: "",

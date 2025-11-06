@@ -4,7 +4,6 @@ import { useState } from "react";
 import { updateSite, uploadFile } from "@/app/admin/actions";
 
 interface Site {
-  id: number;
   title: string;
   description: string;
   favicon: string;

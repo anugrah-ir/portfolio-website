@@ -1,13 +1,20 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import prisma from "../../../lib/prisma";
 import { put } from "@vercel/blob";
 
 export async function getSite() {
   try {
-    const site = await prisma.site.findFirst();
-    return site;
+    const site = await prisma.site.findFirst({
+      select: {
+        title: true,
+        description: true,
+        favicon: true,
+      },
+    });
+    return { success: true, site };
   } catch (error) {
-    return null;
+    return { success: false };
   }
 }
 
@@ -25,6 +32,8 @@ export async function updateSite(key: string, value: string) {
     if (!updatedSite) {
       return { success: false };
     }
+
+    revalidatePath("/admin");
 
     return { success: true };
   } catch (error) {
