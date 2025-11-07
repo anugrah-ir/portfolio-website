@@ -1,7 +1,8 @@
 "use client";
 import Form from "next/form";
-import { useState } from "react";
+import { useState, useActionState } from "react";
 import { updateSite, uploadFile } from "@/app/admin/actions";
+import { CloudUpload } from "lucide-react";
 
 interface Site {
   title: string;
@@ -15,6 +16,95 @@ interface SiteFormProps {
 
 function handleSubmit() {
   return;
+}
+
+function UploadFileForm() {
+  const [file, setFile] = useState<File | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  // ADD THIS: useActionState hook for form submission
+  const [state, formAction, isPending] = useActionState(uploadFile, null);
+
+  const allowedTypes = [".ico", ".svg", ".png", ".jpg", ".jpeg"];
+  const maxSize = 1024 * 1024;
+
+  const validateFile = (file: File): boolean => {
+    const extension = "." + file.name.split(".").pop()?.toLowerCase();
+    if (!allowedTypes.includes(extension)) {
+      alert("Invalid file format");
+      return false;
+    }
+    if (file.size > maxSize) {
+      alert("File size exceeds 1MB");
+      return false;
+    }
+    return true;
+  };
+
+  const handleFile = (file: File) => {
+    if (validateFile(file)) {
+      setFile(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) handleFile(droppedFile);
+  };
+
+  const handleBrowse = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    if (files.length > 1) {
+      alert("Please select only one file.");
+      e.target.value = "";
+      return;
+    }
+
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) handleFile(selectedFile);
+  };
+
+  return (
+    // WRAP WITH FORM TAG - using formAction prop
+    <form action={formAction}>
+      <div
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        className={isDragging ? "dragging" : ""}
+      >
+        <input
+          type="file"
+          // ADD NAME ATTRIBUTE - required for FormData
+          name="file"
+          accept={allowedTypes.join(",")}
+          onChange={handleBrowse}
+        />
+
+        {file && <p>Selected: {file.name}</p>}
+
+        {/* ADD SUBMIT BUTTON */}
+        <button type="submit" disabled={!file || isPending}>
+          {isPending ? "Uploading..." : "Upload File"}
+        </button>
+
+        {/* OPTIONAL: Display upload result */}
+        {state && <p>File uploaded: {state}</p>}
+      </div>
+    </form>
+  );
 }
 
 export default function SiteForm({ site }: SiteFormProps) {
@@ -175,7 +265,7 @@ export default function SiteForm({ site }: SiteFormProps) {
           /> */}
         </div>
 
-        <form action={handleSubmit} className="space-y-4">
+        <Form action={handleSubmit} className="space-y-4">
           <input type="file" name="file" required className="block" />
           <button
             type="submit"
@@ -184,7 +274,7 @@ export default function SiteForm({ site }: SiteFormProps) {
           >
             {uploading ? "Uploading..." : "Upload"}
           </button>
-        </form>
+        </Form>
         {result && <div className="mt-4 rounded p-4">{result}</div>}
 
         {/* <button

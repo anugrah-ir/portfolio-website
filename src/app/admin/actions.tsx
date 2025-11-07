@@ -41,7 +41,7 @@ export async function updateSite(key: string, value: string) {
   }
 }
 
-export async function uploadFile(formData: FormData) {
+export async function uploadFile(prevState: string | null, formData: FormData) {
   const file = formData.get("file") as File;
 
   if (!file) {
