@@ -1,6 +1,6 @@
 "use client";
 import Form from "next/form";
-import { useState, useActionState } from "react";
+import { useState } from "react";
 import { updateSite, uploadFile } from "@/app/admin/actions";
 import { CloudUpload } from "lucide-react";
 
@@ -14,15 +14,11 @@ interface SiteFormProps {
   site: Site;
 }
 
-function handleSubmit() {
-  return;
-}
-
 function UploadFileForm() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  // ADD THIS: useActionState hook for form submission
-  const [state, formAction, isPending] = useActionState(uploadFile, null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [result, setResult] = useState<string>("");
 
   const allowedTypes = [".ico", ".svg", ".png", ".jpg", ".jpeg"];
   const maxSize = 1024 * 1024;
@@ -76,34 +72,60 @@ function UploadFileForm() {
     if (selectedFile) handleFile(selectedFile);
   };
 
+  async function handleSubmit(formData: FormData) {
+    setIsUploading(true);
+    setResult("");
+
+    try {
+      const url = await uploadFile(formData);
+      setResult(`File uploaded successfully! URL: ${url}`);
+    } catch (error) {
+      setResult(
+        `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    } finally {
+      setIsUploading(false);
+    }
+  }
+
   return (
-    // WRAP WITH FORM TAG - using formAction prop
-    <form action={formAction}>
+    <Form
+      action={handleSubmit}
+      className="flex flex-col items-center gap-10 lg:flex-row"
+    >
       <div
+        className={`flex flex-col items-center justify-center border-2 ${isDragging ? "border-blue-500" : "border-neutral-500"} rounded-2xl border-dashed p-8 text-center`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={isDragging ? "dragging" : ""}
       >
-        <input
-          type="file"
-          // ADD NAME ATTRIBUTE - required for FormData
-          name="file"
-          accept={allowedTypes.join(",")}
-          onChange={handleBrowse}
-        />
-
-        {file && <p>Selected: {file.name}</p>}
-
-        {/* ADD SUBMIT BUTTON */}
-        <button type="submit" disabled={!file || isPending}>
-          {isPending ? "Uploading..." : "Upload File"}
-        </button>
-
-        {/* OPTIONAL: Display upload result */}
-        {state && <p>File uploaded: {state}</p>}
+        <CloudUpload className="h-12 w-12" />
+        <p className="mt-4">Choose a file or drag & drop here</p>
+        <p className="mt-2 text-sm text-neutral-300">
+          ICO, SVG, PNG, and JPG formats, up to 1MB
+        </p>
+        <label className="mt-4 inline-block cursor-pointer rounded-lg border border-neutral-300 px-4 py-2 hover:bg-neutral-800">
+          Browse
+          <input
+            name="file"
+            type="file"
+            className="hidden"
+            accept=".ico,.svg,.png,.jpg,.jpeg"
+            onChange={handleBrowse}
+          />
+        </label>
+        {file && (
+          <p className="mt-4 text-sm text-green-600">Selected: {file.name}</p>
+        )}
       </div>
-    </form>
+      <button
+        type="submit"
+        disabled={isUploading}
+        className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+      >
+        {isUploading ? "Uploading..." : "Save"}
+      </button>
+    </Form>
   );
 }
 
@@ -153,25 +175,6 @@ export default function SiteForm({ site }: SiteFormProps) {
       });
     }
   };
-
-  const [uploading, setUploading] = useState(false);
-  const [result, setResult] = useState<string>("");
-
-  async function handleSubmit(formData: FormData) {
-    setUploading(true);
-    setResult("");
-
-    try {
-      const url = await uploadFile(formData);
-      setResult(`File uploaded successfully! URL: ${url}`);
-    } catch (error) {
-      setResult(
-        `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
-      );
-    } finally {
-      setUploading(false);
-    }
-  }
 
   return (
     <div className="flex w-[80vw] flex-col gap-5 rounded-2xl border border-neutral-700 bg-neutral-900 p-5 lg:w-[50vw] lg:gap-10 lg:rounded-4xl lg:p-10">
@@ -254,35 +257,9 @@ export default function SiteForm({ site }: SiteFormProps) {
           <p className="text-sm text-neutral-300 lg:text-lg">
             The icon of your website, visible on the tab bar
           </p>
-          {/* <input
-            name="favicon"
-            type="text"
-            value={formData.favicon}
-            onChange={(e) =>
-              setFormData({ ...formData, favicon: e.target.value })
-            }
-            className="mt-2 rounded-md border border-neutral-600 bg-neutral-800 px-3 py-2 text-sm lg:rounded-lg lg:text-lg"
-          /> */}
         </div>
 
-        <Form action={handleSubmit} className="space-y-4">
-          <input type="file" name="file" required className="block" />
-          <button
-            type="submit"
-            disabled={uploading}
-            className="rounded bg-blue-600 px-4 py-2 text-white disabled:opacity-50"
-          >
-            {uploading ? "Uploading..." : "Upload"}
-          </button>
-        </Form>
-        {result && <div className="mt-4 rounded p-4">{result}</div>}
-
-        {/* <button
-          type="submit"
-          className="text-md mt-5 self-center rounded-xl border border-neutral-600 bg-neutral-800 px-3 py-2 hover:cursor-pointer hover:border-neutral-500 hover:bg-neutral-700 hover:text-neutral-300 lg:text-xl"
-        >
-          Save
-        </button> */}
+        <UploadFileForm />
       </div>
     </div>
   );
