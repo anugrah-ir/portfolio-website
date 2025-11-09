@@ -71,6 +71,10 @@ function UploadFileForm() {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) handleFile(selectedFile);
   };
+  const handleCancelFile = () => {
+    setFile(null);
+    setResult("");
+  };
 
   async function handleSubmit(formData: FormData) {
     setIsUploading(true);
@@ -118,13 +122,25 @@ function UploadFileForm() {
           <p className="mt-4 text-sm text-green-600">Selected: {file.name}</p>
         )}
       </div>
-      <button
-        type="submit"
-        disabled={isUploading}
-        className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
-      >
-        {isUploading ? "Uploading..." : "Save"}
-      </button>
+      <div className="flex gap-3">
+        <button
+          type="submit"
+          disabled={isUploading}
+          className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+        >
+          {isUploading ? "Uploading..." : "Save"}
+        </button>
+        {file && (
+          <button
+            type="button"
+            onClick={handleCancelFile}
+            disabled={isUploading}
+            className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </Form>
   );
 }
@@ -142,6 +158,12 @@ export default function SiteForm({ site }: SiteFormProps) {
     text: string;
   } | null>(null);
 
+  const handleTitleCancel = () => {
+    setFormData({ ...formData, title: site.title });
+    setIsEditingTitle(false);
+    setTitleMessage(null);
+  };
+
   const handleTitleSave = async () => {
     try {
       const success = await updateSite("title", formData.title);
@@ -154,6 +176,12 @@ export default function SiteForm({ site }: SiteFormProps) {
     } catch (error) {
       setTitleMessage({ type: "error", text: "Failed to save title" });
     }
+  };
+
+  const handleDescriptionCancel = () => {
+    setFormData({ ...formData, description: site.description });
+    setIsEditingDescription(false);
+    setDescriptionMessage(null);
   };
 
   const handleDescriptionSave = async () => {
@@ -206,6 +234,15 @@ export default function SiteForm({ site }: SiteFormProps) {
             >
               {isEditingTitle ? "Save" : "Edit"}
             </button>
+            {isEditingTitle && (
+              <button
+                type="button"
+                onClick={handleTitleCancel}
+                className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:bg-neutral-700 lg:text-base"
+              >
+                Cancel
+              </button>
+            )}
           </div>
           {titleMessage && (
             <p
@@ -243,6 +280,15 @@ export default function SiteForm({ site }: SiteFormProps) {
             >
               {isEditingDescription ? "Save" : "Edit"}
             </button>
+            {isEditingDescription && (
+              <button
+                type="button"
+                onClick={handleDescriptionCancel}
+                className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:bg-neutral-700 lg:text-base"
+              >
+                Cancel
+              </button>
+            )}
           </div>
           {descriptionMessage && (
             <p
