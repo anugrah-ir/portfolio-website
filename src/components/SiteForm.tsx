@@ -130,16 +130,14 @@ function UploadFileForm() {
         >
           {isUploading ? "Uploading..." : "Save"}
         </button>
-        {file && (
-          <button
-            type="button"
-            onClick={handleCancelFile}
-            disabled={isUploading}
-            className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
-          >
-            Cancel
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={handleCancelFile}
+          disabled={isUploading}
+          className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+        >
+          Cancel
+        </button>
       </div>
     </Form>
   );
