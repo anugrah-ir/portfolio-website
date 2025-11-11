@@ -3,6 +3,7 @@ import Form from "next/form";
 import { useState } from "react";
 import { updateSite, uploadFile } from "@/app/admin/actions";
 import { CloudUpload } from "lucide-react";
+import Image from "next/image";
 
 interface Site {
   title: string;
@@ -147,6 +148,7 @@ export default function SiteForm({ site }: SiteFormProps) {
   const [formData, setFormData] = useState(site);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [isEditingFavicon, setIsEditingFavicon] = useState(false);
   const [titleMessage, setTitleMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -302,8 +304,20 @@ export default function SiteForm({ site }: SiteFormProps) {
             The icon of your website, visible on the tab bar
           </p>
         </div>
-
-        <UploadFileForm />
+        {isEditingFavicon ? (
+          <UploadFileForm />
+        ) : (
+          <div className="flex flex-row items-center gap-10">
+            <Image src={site.favicon} alt="Favicon" width={100} height={100} />
+            <button
+              type="button"
+              onClick={() => setIsEditingFavicon(true)}
+              className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:cursor-pointer hover:bg-neutral-700 lg:text-base"
+            >
+              Edit
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
