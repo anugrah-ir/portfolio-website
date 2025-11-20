@@ -94,52 +94,52 @@ function UploadFileForm() {
   }
 
   return (
-    <Form
-      action={handleSubmit}
-      className="flex flex-col items-center gap-10 lg:flex-row"
-    >
-      <div
-        className={`flex flex-col items-center justify-center border-2 ${isDragging ? "border-blue-500" : "border-neutral-500"} rounded-2xl border-dashed p-8 text-center`}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        <CloudUpload className="h-12 w-12" />
-        <p className="mt-4">Choose a file or drag & drop here</p>
-        <p className="mt-2 text-sm text-neutral-300">
-          ICO, SVG, PNG, and JPG formats, up to 1MB
-        </p>
-        <label className="mt-4 inline-block cursor-pointer rounded-lg border border-neutral-300 px-4 py-2 hover:bg-neutral-800">
-          Browse
-          <input
-            name="file"
-            type="file"
-            className="hidden"
-            accept=".ico,.svg,.png,.jpg,.jpeg"
-            onChange={handleBrowse}
-          />
-        </label>
-        {file && (
-          <p className="mt-4 text-sm text-green-600">Selected: {file.name}</p>
-        )}
-      </div>
-      <div className="flex gap-3">
-        <button
-          type="submit"
-          disabled={isUploading}
-          className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+    <Form action={handleSubmit} className="flex flex-col gap-5">
+      <div className="flex flex-col items-center gap-10 lg:flex-row">
+        <div
+          className={`flex flex-col items-center justify-center border-2 ${isDragging ? "border-blue-500" : "border-neutral-500"} rounded-2xl border-dashed p-8 text-center`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
         >
-          {isUploading ? "Uploading..." : "Save"}
-        </button>
-        <button
-          type="button"
-          onClick={handleCancelFile}
-          disabled={isUploading}
-          className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
-        >
-          Cancel
-        </button>
+          <CloudUpload className="h-12 w-12" />
+          <p className="mt-4">Choose a file or drag & drop here</p>
+          <p className="mt-2 text-sm text-neutral-300">
+            ICO, SVG, PNG, and JPG formats, up to 1MB
+          </p>
+          <label className="mt-4 inline-block cursor-pointer rounded-lg border border-neutral-300 px-4 py-2 hover:bg-neutral-800">
+            Browse
+            <input
+              name="file"
+              type="file"
+              className="hidden"
+              accept=".ico,.svg,.png,.jpg,.jpeg"
+              onChange={handleBrowse}
+            />
+          </label>
+          {file && (
+            <p className="mt-4 text-sm text-green-600">Selected: {file.name}</p>
+          )}
+        </div>
+        <div className="flex gap-3">
+          <button
+            type="submit"
+            disabled={isUploading}
+            className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+          >
+            {isUploading ? "Uploading..." : "Save"}
+          </button>
+          <button
+            type="button"
+            onClick={handleCancelFile}
+            disabled={isUploading}
+            className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
+      <p className="font-base text-xl text-green-500">{result}</p>
     </Form>
   );
 }
@@ -303,21 +303,26 @@ export default function SiteForm({ site }: SiteFormProps) {
           <p className="text-sm text-neutral-300 lg:text-lg">
             The icon of your website, visible on the tab bar
           </p>
+          {isEditingFavicon ? (
+            <UploadFileForm />
+          ) : (
+            <div className="flex flex-row items-center gap-10">
+              <Image
+                src={site.favicon}
+                alt="Favicon"
+                width={100}
+                height={100}
+              />
+              <button
+                type="button"
+                onClick={() => setIsEditingFavicon(true)}
+                className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:cursor-pointer hover:bg-neutral-700 lg:text-base"
+              >
+                Edit
+              </button>
+            </div>
+          )}
         </div>
-        {isEditingFavicon ? (
-          <UploadFileForm />
-        ) : (
-          <div className="flex flex-row items-center gap-10">
-            <Image src={site.favicon} alt="Favicon" width={100} height={100} />
-            <button
-              type="button"
-              onClick={() => setIsEditingFavicon(true)}
-              className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:cursor-pointer hover:bg-neutral-700 lg:text-base"
-            >
-              Edit
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );
