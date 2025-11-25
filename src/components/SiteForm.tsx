@@ -15,7 +15,11 @@ interface SiteFormProps {
   site: Site;
 }
 
-function UploadFileForm() {
+interface UploadFileFormProps {
+  onCancel: () => void;
+}
+
+function UploadFileForm({ onCancel }: UploadFileFormProps) {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -75,6 +79,7 @@ function UploadFileForm() {
   const handleCancelFile = () => {
     setFile(null);
     setResult("");
+    onCancel();
   };
 
   async function handleSubmit(formData: FormData) {
@@ -304,7 +309,7 @@ export default function SiteForm({ site }: SiteFormProps) {
             The icon of your website, visible on the tab bar
           </p>
           {isEditingFavicon ? (
-            <UploadFileForm />
+            <UploadFileForm onCancel={() => setIsEditingFavicon(false)} />
           ) : (
             <div className="flex flex-row items-center gap-10">
               <Image
