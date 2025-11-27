@@ -56,7 +56,12 @@ function UploadFileForm({ onCancel }: UploadFileFormProps) {
   return (
     <Form action={handleSubmit} className="flex flex-col gap-5">
       <div className="flex flex-col items-center gap-10 lg:flex-row">
-        <FileUpload file={file} onFileSelect={setFile} />
+        <FileUpload
+          file={file}
+          onFileSelect={setFile}
+          allowedTypes={[".ico", ".svg", ".png", ".jpg", ".jpeg"]}
+          maxSize={1024 * 1024}
+        />
         <div className="flex gap-3">
           <button
             type="submit"

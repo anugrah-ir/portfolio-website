@@ -4,23 +4,35 @@ import { CloudUpload } from "lucide-react";
 interface FileUploadProps {
   file: File | null;
   onFileSelect: (file: File) => void;
+  allowedTypes?: string[];
+  maxSize?: number;
 }
 
-export default function FileUpload({ file, onFileSelect }: FileUploadProps) {
+export default function FileUpload({
+  file,
+  onFileSelect,
+  allowedTypes,
+  maxSize,
+}: FileUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
-  const allowedTypes = [".ico", ".svg", ".png", ".jpg", ".jpeg"];
-  const maxSize = 1024 * 1024;
+  const sizeInMB = maxSize ? maxSize / (1024 * 1024) : undefined;
 
   const validateFile = (file: File): boolean => {
-    const extension = "." + file.name.split(".").pop()?.toLowerCase();
-    if (!allowedTypes.includes(extension)) {
-      alert("Invalid file format");
-      return false;
+    if (allowedTypes && allowedTypes.length > 0) {
+      const extension = "." + file.name.split(".").pop()?.toLowerCase();
+      if (!allowedTypes.includes(extension)) {
+        alert(`Invalid file format. Allowed: ${allowedTypes.join(", ")}`);
+        return false;
+      }
     }
-    if (file.size > maxSize) {
-      alert("File size exceeds 1MB");
-      return false;
+
+    if (maxSize) {
+      if (file.size > maxSize) {
+        alert(`File size exceeds ${maxSize / (1024 * 1024)}MB`);
+        return false;
+      }
     }
+
     return true;
   };
 
@@ -70,7 +82,10 @@ export default function FileUpload({ file, onFileSelect }: FileUploadProps) {
       <CloudUpload className="h-12 w-12" />
       <p className="mt-4">Choose a file or drag & drop here</p>
       <p className="mt-2 text-sm text-neutral-300">
-        ICO, SVG, PNG, and JPG formats, up to 1MB
+        {allowedTypes
+          ? `${allowedTypes.join(", ").toUpperCase().replace(/\./g, "")} formats`
+          : ""}
+        {sizeInMB ? `, up to ${sizeInMB}MB` : ""}
       </p>
       <label className="mt-4 inline-block cursor-pointer rounded-lg border border-neutral-300 px-4 py-2 hover:bg-neutral-800">
         Browse
@@ -78,7 +93,7 @@ export default function FileUpload({ file, onFileSelect }: FileUploadProps) {
           name="file"
           type="file"
           className="hidden"
-          accept=".ico,.svg,.png,.jpg,.jpeg"
+          accept={allowedTypes?.join(",")}
           onChange={handleBrowse}
         />
       </label>
