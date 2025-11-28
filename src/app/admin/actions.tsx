@@ -3,6 +3,17 @@ import { revalidatePath } from "next/cache";
 import prisma from "../../../lib/prisma";
 import { put } from "@vercel/blob";
 
+async function saveFile(file: File) {
+  const timestamp = Date.now();
+  const filename = `${timestamp}-${file.name}`;
+
+  const blob = await put(filename, file, {
+    access: "public",
+  });
+
+  return blob.url;
+}
+
 export async function getSite() {
   try {
     const site = await prisma.site.findFirst({
@@ -41,19 +52,50 @@ export async function updateSite(key: string, value: string) {
   }
 }
 
-export async function uploadFile(formData: FormData) {
+// export async function uploadFile(formData: FormData) {
+//   const file = formData.get("file") as File;
+
+//   if (!file) {
+//     throw new Error("No file provided");
+//   }
+
+//   const timestamp = Date.now();
+//   const filename = `${timestamp}-${file.name}`;
+
+//   const blob = await put(filename, file, {
+//     access: "public",
+//   });
+
+//   return blob.url;
+// }
+
+export async function updateFavicon(formData: FormData) {
   const file = formData.get("file") as File;
 
   if (!file) {
     throw new Error("No file provided");
   }
 
-  const timestamp = Date.now();
-  const filename = `${timestamp}-${file.name}`;
+  const url = await saveFile(file);
 
-  const blob = await put(filename, file, {
-    access: "public",
-  });
+  try {
+    const updatedFavicon = await prisma.site.update({
+      where: {
+        id: 1,
+      },
+      data: {
+        favicon: url,
+      },
+    });
 
-  return blob.url;
+    if (!updatedFavicon) {
+      return { success: false };
+    }
+
+    revalidatePath("/admin");
+
+    return { success: true, data: url };
+  } catch (error) {
+    return { success: false };
+  }
 }

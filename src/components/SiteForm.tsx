@@ -1,7 +1,7 @@
 "use client";
 import Form from "next/form";
 import { useState } from "react";
-import { updateSite, uploadFile } from "@/app/admin/actions";
+import { updateSite, updateFavicon } from "@/app/admin/actions";
 import Image from "next/image";
 import FileUpload from "./FileUpload";
 
@@ -42,8 +42,11 @@ function UploadFileForm({ onCancel }: UploadFileFormProps) {
     formData.set("file", file);
 
     try {
-      const url = await uploadFile(formData);
-      setResult(`File uploaded successfully! URL: ${url}`);
+      const success = await updateFavicon(formData);
+      if (!success) {
+        setResult("An error occured while uploading the file");
+      }
+      setResult(`File uploaded successfully! URL: ${success.data}`);
     } catch (error) {
       setResult(
         `Error: ${error instanceof Error ? error.message : "Unknown error"}`,

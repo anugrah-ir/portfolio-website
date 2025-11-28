@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getSite } from "./admin/actions";
-import siteData from "@/data/siteData.json";
 
 const site = getSite();
 
