@@ -14,8 +14,10 @@ export default async function Admin() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-5 px-10 py-5 lg:gap-10 lg:px-20 lg:py-10">
-      <h1 className="text-2xl font-medium lg:text-4xl">Admin Dashboard</h1>
+    <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-6 px-4 py-8 sm:gap-10 sm:px-6 sm:py-12 md:py-16">
+      <h1 className="text-center text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+        Admin Dashboard
+      </h1>
       <SiteForm site={site} />
     </div>
   );

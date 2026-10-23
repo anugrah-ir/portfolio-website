@@ -31,7 +31,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className={`self-center rounded-lg border border-neutral-600 bg-neutral-800 px-3 py-2 hover:cursor-pointer hover:border-neutral-500 hover:text-gray-300 ${
+      className={`w-full self-stretch rounded-lg border border-neutral-600 bg-neutral-800 px-6 py-2.5 text-sm font-medium transition-colors hover:cursor-pointer hover:border-neutral-400 hover:text-white sm:w-auto sm:self-center sm:text-base ${
         pending ? "cursor-not-allowed opacity-50" : ""
       }`}
     >
@@ -95,12 +95,16 @@ export default function ContactForm() {
   return (
     <Form
       action={handleSubmit}
-      className="flex w-full flex-col items-start gap-5 rounded-3xl border border-neutral-800 bg-neutral-900 p-5 lg:w-2/5"
+      className="flex w-full max-w-lg flex-col items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl sm:gap-5 sm:rounded-3xl sm:p-7 md:p-8 lg:w-[46%]"
     >
-      <h2 className="self-center text-xl font-semibold">Fill Out This Form</h2>
+      <h2 className="self-center text-lg font-semibold sm:text-xl">
+        Fill Out This Form
+      </h2>
 
-      <div className="flex w-full flex-col gap-2">
-        <label className="text-xl font-medium">Name</label>
+      <div className="flex w-full flex-col gap-1.5 sm:gap-2">
+        <label className="text-sm font-medium text-neutral-200 sm:text-base">
+          Name
+        </label>
         <input
           name="name"
           type="text"
@@ -109,15 +113,17 @@ export default function ContactForm() {
           onChange={(e) =>
             setFormValues({ ...formValues, name: e.target.value })
           }
-          className="w-full rounded-md border border-neutral-700 bg-neutral-900 p-2"
+          className="w-full rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+          <p className="mt-1 text-xs text-red-500 sm:text-sm">{errors.name}</p>
         )}
       </div>
 
-      <div className="flex w-full flex-col gap-2">
-        <label className="text-xl font-medium">Email</label>
+      <div className="flex w-full flex-col gap-1.5 sm:gap-2">
+        <label className="text-sm font-medium text-neutral-200 sm:text-base">
+          Email
+        </label>
         <input
           name="email"
           type="email"
@@ -126,15 +132,17 @@ export default function ContactForm() {
           onChange={(e) =>
             setFormValues({ ...formValues, email: e.target.value })
           }
-          className="w-full rounded-md border border-neutral-700 bg-neutral-900 p-2"
+          className="w-full rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+          <p className="mt-1 text-xs text-red-500 sm:text-sm">{errors.email}</p>
         )}
       </div>
 
-      <div className="flex w-full flex-col gap-2">
-        <label className="text-xl font-medium">Message</label>
+      <div className="flex w-full flex-col gap-1.5 sm:gap-2">
+        <label className="text-sm font-medium text-neutral-200 sm:text-base">
+          Message
+        </label>
         <textarea
           name="message"
           rows={5}
@@ -143,10 +151,12 @@ export default function ContactForm() {
           onChange={(e) =>
             setFormValues({ ...formValues, message: e.target.value })
           }
-          className="w-full resize-none rounded-md border border-neutral-700 bg-neutral-900 p-2"
+          className="w-full resize-none rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.message && (
-          <p className="mt-1 text-sm text-red-500">{errors.message}</p>
+          <p className="mt-1 text-xs text-red-500 sm:text-sm">
+            {errors.message}
+          </p>
         )}
       </div>
 
@@ -154,7 +164,7 @@ export default function ContactForm() {
 
       {status !== "idle" && (
         <p
-          className={`lg:text-md mt-2 self-center text-sm ${
+          className={`mt-2 self-center text-center text-xs sm:text-sm ${
             status === "success" ? "text-green-500" : "text-red-500"
           }`}
         >

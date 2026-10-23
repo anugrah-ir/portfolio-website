@@ -25,27 +25,31 @@ function LinkedinIcon(props: React.ComponentProps<"svg">) {
 
 export default function SocialLinks() {
   return (
-    <div className="flex w-full flex-col items-start gap-8 rounded-3xl border border-neutral-800 bg-neutral-900 p-5 lg:w-2/5">
-      <h2 className="self-center text-xl font-semibold">
+    <div className="flex w-full max-w-lg flex-col items-start gap-6 rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl sm:gap-8 sm:rounded-3xl sm:p-7 md:p-8 lg:w-[46%]">
+      <h2 className="self-center text-center text-lg font-semibold sm:text-xl">
         Reach Me Out Via My Socials
       </h2>
       <Link
         href={siteData.author.social.email}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex w-full flex-row items-center justify-start gap-5 rounded-xl border border-neutral-700 bg-neutral-800 px-5 py-3"
+        className="flex w-full flex-row items-center justify-start gap-4 rounded-xl border border-neutral-700/80 bg-neutral-800/80 px-4 py-3 transition-all hover:border-neutral-500 hover:bg-neutral-700/80 sm:gap-5 sm:px-5 sm:py-3.5"
       >
-        <Mail className="h-8 w-8" />
-        <p className="font-base text-xl">Email</p>
+        <Mail className="h-6 w-6 text-neutral-300 sm:h-7 sm:w-7" />
+        <span className="text-base font-medium text-white sm:text-lg">
+          Email
+        </span>
       </Link>
       <Link
         href={siteData.author.social.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex w-full flex-row items-center justify-start gap-5 rounded-xl border border-neutral-700 bg-neutral-800 px-5 py-3"
+        className="flex w-full flex-row items-center justify-start gap-4 rounded-xl border border-neutral-700/80 bg-neutral-800/80 px-4 py-3 transition-all hover:border-neutral-500 hover:bg-neutral-700/80 sm:gap-5 sm:px-5 sm:py-3.5"
       >
-        <LinkedinIcon className="h-8 w-8" />
-        <p className="font-base text-xl">LinkedIn</p>
+        <LinkedinIcon className="h-6 w-6 text-neutral-300 sm:h-7 sm:w-7" />
+        <span className="text-base font-medium text-white sm:text-lg">
+          LinkedIn
+        </span>
       </Link>
     </div>
   );

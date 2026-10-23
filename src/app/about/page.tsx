@@ -3,44 +3,53 @@ import siteData from "@/data/siteData.json";
 
 export default function About() {
   return (
-    <main className="min-h-screen p-10">
-      <h1 className="mb-10 text-center text-4xl font-bold">About Me</h1>
+    <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12 md:py-16">
+      <h1 className="mb-8 text-center text-3xl font-bold sm:mb-12 sm:text-4xl">
+        About Me
+      </h1>
 
-      <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
+      <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 md:flex-row md:items-center">
         {/* Left column: Profile picture */}
         <div
-          className="relative flex h-48 w-48 items-center justify-center rounded-full bg-cover bg-center"
+          className="relative flex h-40 w-40 shrink-0 items-center justify-center rounded-full bg-cover bg-center sm:h-48 sm:w-48"
           style={{ backgroundImage: "url('/profile-background.png')" }}
         >
           <Image
             src="/me.png"
             alt="My profile picture"
             fill
+            sizes="(max-width: 640px) 160px, 192px"
+            priority
             className="rounded-full object-cover shadow-lg"
           />
         </div>
 
         {/* Right column: Intro text */}
-        <div>
-          <h2 className="text-3xl font-bold">{siteData.author.name}</h2>
-          <p className="mt-4 max-w-2xl text-lg">{siteData.author.bio}</p>
+        <div className="text-center md:text-left">
+          <h2 className="text-2xl font-bold sm:text-3xl">
+            {siteData.author.name}
+          </h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-neutral-300 sm:mt-4 sm:text-lg">
+            {siteData.author.bio}
+          </p>
         </div>
       </div>
 
       {/* Skills section */}
-      <div className="mt-6">
-        <h3 className="mt-16 mb-4 text-2xl font-semibold">Tech Stack</h3>
-        <div className="flex flex-wrap gap-3">
+      <div className="mt-10 sm:mt-12 md:mt-16">
+        <h3 className="mb-4 text-xl font-semibold sm:text-2xl">Tech Stack</h3>
+        <div className="flex flex-wrap gap-2 sm:gap-3">
           {siteData.author.techStack.map((tech, index) => (
             <span
               key={index}
-              className="rounded-full bg-neutral-800 px-4 py-2 text-sm text-white"
+              className="rounded-full border border-neutral-700/60 bg-neutral-800/80 px-3.5 py-1.5 text-xs text-neutral-200 sm:px-4 sm:py-2 sm:text-sm"
             >
               {tech}
             </span>
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
+

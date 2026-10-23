@@ -13,28 +13,30 @@ interface SliderProps {
 
 export default function Slider({ images, title }: SliderProps) {
   return (
-    <section className="w-full lg:w-4/5">
+    <section className="w-full">
       <Swiper
         modules={[Autoplay, Pagination]}
         slidesPerView={1}
-        spaceBetween={32}
+        spaceBetween={24}
         loop={true}
-        speed={2000}
-        effect="fade"
+        speed={1000}
         autoplay={{
-          delay: 3000,
+          delay: 4000,
           disableOnInteraction: false,
         }}
-        pagination={true}
+        pagination={{ clickable: true }}
+        className="w-full overflow-hidden rounded-xl border border-neutral-800 sm:rounded-2xl lg:rounded-3xl"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <div className="relative aspect-video overflow-hidden rounded-2xl border border-neutral-500 lg:rounded-4xl">
+            <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
               <Image
-                src={`/${image}`}
+                src={image.startsWith("/") ? image : `/${image}`}
                 fill={true}
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 alt={`${title} screenshot ${index + 1}`}
-                loading="lazy"
+                priority={index === 0}
+                className="object-cover"
               />
             </div>
           </SwiperSlide>

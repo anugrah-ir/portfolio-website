@@ -74,20 +74,24 @@ export default function FileUpload({
 
   return (
     <div
-      className={`flex flex-col items-center justify-center border-2 ${isDragging ? "border-blue-500" : "border-neutral-500"} rounded-2xl border-dashed p-8 text-center`}
+      className={`flex w-full flex-col items-center justify-center rounded-xl border-2 sm:rounded-2xl ${
+        isDragging ? "border-blue-500 bg-blue-500/10" : "border-neutral-700 bg-neutral-950/40"
+      } border-dashed p-4 text-center sm:p-8`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <CloudUpload className="h-12 w-12" />
-      <p className="mt-4">Choose a file or drag & drop here</p>
-      <p className="mt-2 text-sm text-neutral-300">
+      <CloudUpload className="h-10 w-10 text-neutral-400 sm:h-12 sm:w-12" />
+      <p className="mt-3 text-sm font-medium text-white sm:mt-4 sm:text-base">
+        Choose a file or drag & drop here
+      </p>
+      <p className="mt-1 text-xs text-neutral-400 sm:mt-2 sm:text-sm">
         {allowedTypes
           ? `${allowedTypes.join(", ").toUpperCase().replace(/\./g, "")} formats`
           : ""}
         {sizeInMB ? `, up to ${sizeInMB}MB` : ""}
       </p>
-      <label className="mt-4 inline-block cursor-pointer rounded-lg border border-neutral-300 px-4 py-2 hover:bg-neutral-800">
+      <label className="mt-3 inline-block cursor-pointer rounded-lg border border-neutral-600 bg-neutral-800/80 px-4 py-1.5 text-xs font-medium transition hover:border-neutral-400 hover:bg-neutral-700 sm:mt-4 sm:py-2 sm:text-sm">
         Browse
         <input
           name="file"
@@ -98,7 +102,9 @@ export default function FileUpload({
         />
       </label>
       {file && (
-        <p className="mt-4 text-sm text-green-600">Selected: {file.name}</p>
+        <p className="mt-3 max-w-full break-all text-xs font-medium text-green-500 sm:text-sm">
+          Selected: {file.name}
+        </p>
       )}
     </div>
   );

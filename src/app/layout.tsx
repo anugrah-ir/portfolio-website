@@ -35,12 +35,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} flex min-h-screen flex-col bg-neutral-950 text-white antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} flex min-h-screen w-full flex-col overflow-x-hidden bg-neutral-950 text-white antialiased`}
       >
         <Navbar />
-        <main className="flex-grow pt-16">{children}</main>
+        <main className="w-full flex-grow pt-16">{children}</main>
         <Footer />
         <Analytics />
       </body>

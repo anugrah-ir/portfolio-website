@@ -59,18 +59,18 @@ function UploadFileForm({ onCancel }: UploadFileFormProps) {
 
   return (
     <Form action={handleSubmit} className="flex flex-col gap-5">
-      <div className="flex flex-col items-center gap-10 lg:flex-row">
+      <div className="flex flex-col items-center gap-6 lg:flex-row">
         <FileUpload
           file={file}
           onFileSelect={setFile}
           allowedTypes={[".ico", ".svg", ".png", ".jpg", ".jpeg"]}
           maxSize={1024 * 1024}
         />
-        <div className="flex gap-3">
+        <div className="flex w-full justify-center gap-3 sm:w-auto">
           <button
             type="submit"
             disabled={isUploading || !file}
-            className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+            className="cursor-pointer rounded-xl border border-neutral-600 bg-neutral-800 px-5 py-2 text-sm font-medium transition hover:border-neutral-400 hover:bg-neutral-700 disabled:opacity-50 sm:text-base"
           >
             {isUploading ? "Uploading..." : "Save"}
           </button>
@@ -78,13 +78,13 @@ function UploadFileForm({ onCancel }: UploadFileFormProps) {
             type="button"
             onClick={handleCancelFile}
             disabled={isUploading}
-            className="cursor-pointer rounded-xl border border-neutral-500 px-4 py-2 text-lg hover:bg-neutral-800 disabled:opacity-50"
+            className="cursor-pointer rounded-xl border border-neutral-600 bg-neutral-800 px-5 py-2 text-sm font-medium transition hover:border-neutral-400 hover:bg-neutral-700 disabled:opacity-50 sm:text-base"
           >
             Cancel
           </button>
         </div>
       </div>
-      <p className="font-base text-xl text-green-500">{result}</p>
+      <p className="text-sm font-medium text-green-500 sm:text-base">{result}</p>
     </Form>
   );
 }
@@ -93,10 +93,12 @@ export default function SiteForm({ site }: SiteFormProps) {
   const [isEditingFavicon, setIsEditingFavicon] = useState(false);
 
   return (
-    <div className="flex w-[80vw] flex-col gap-5 rounded-2xl border border-neutral-700 bg-neutral-900 p-5 lg:w-[50vw] lg:gap-10 lg:rounded-4xl lg:p-10">
-      <h2 className="font-base text-xl lg:text-3xl">Site</h2>
+    <div className="flex w-full max-w-3xl flex-col gap-6 rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl sm:gap-8 sm:rounded-3xl sm:p-8 lg:p-10">
+      <h2 className="text-xl font-bold tracking-tight sm:text-2xl lg:text-3xl">
+        Site
+      </h2>
 
-      <div className="flex flex-col gap-3 lg:gap-6">
+      <div className="flex flex-col gap-4 sm:gap-6">
         <EditableField
           name="title"
           label="Title"
@@ -109,25 +111,32 @@ export default function SiteForm({ site }: SiteFormProps) {
           description="Not visible on the website, but will appears on search engine results"
           initialValue={site.description}
         />
-        <div className="flex flex-col gap-1 lg:gap-2">
-          <label className="text-md lg:text-xl">Favicon</label>
-          <p className="text-sm text-neutral-300 lg:text-lg">
+        <div className="flex flex-col gap-1.5 sm:gap-2">
+          <label className="text-sm font-medium text-neutral-200 sm:text-base lg:text-lg">
+            Favicon
+          </label>
+          <p className="text-xs text-neutral-400 sm:text-sm lg:text-base">
             The icon of your website, visible on the tab bar
           </p>
           {isEditingFavicon ? (
-            <UploadFileForm onCancel={() => setIsEditingFavicon(false)} />
+            <div className="pt-2">
+              <UploadFileForm onCancel={() => setIsEditingFavicon(false)} />
+            </div>
           ) : (
-            <div className="flex flex-row items-center gap-10">
-              <Image
-                src={site.favicon}
-                alt="Favicon"
-                width={100}
-                height={100}
-              />
+            <div className="flex flex-row items-center gap-6 pt-2">
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-lg border border-neutral-700 bg-neutral-950 p-2">
+                <Image
+                  src={site.favicon || "/favicon.ico"}
+                  alt="Favicon"
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                />
+              </div>
               <button
                 type="button"
                 onClick={() => setIsEditingFavicon(true)}
-                className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:cursor-pointer hover:bg-neutral-700 lg:text-base"
+                className="rounded-md border border-neutral-600 bg-neutral-800 px-5 py-2 text-xs font-medium transition hover:cursor-pointer hover:border-neutral-400 hover:bg-neutral-700 sm:text-sm lg:text-base"
               >
                 Edit
               </button>

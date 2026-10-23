@@ -42,38 +42,44 @@ export default function EditableField({
   };
 
   return (
-    <div className="flex flex-col gap-1 lg:gap-2">
-      <label className="text-md lg:text-xl">{label}</label>
-      <p className="text-sm text-neutral-300 lg:text-lg">{description}</p>
-      <div className="mt-2 flex items-center gap-5">
+    <div className="flex flex-col gap-1 sm:gap-1.5">
+      <label className="text-sm font-medium text-neutral-200 sm:text-base lg:text-lg">
+        {label}
+      </label>
+      <p className="text-xs text-neutral-400 sm:text-sm">{description}</p>
+      <div className="mt-1.5 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-3">
         <input
           name={name}
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
           disabled={!isEditing}
-          className="flex-1 rounded-md border border-neutral-600 bg-neutral-800 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50 lg:rounded-lg lg:text-lg"
+          className="flex-1 rounded-md border border-neutral-700 bg-neutral-950/60 px-3 py-2 text-sm text-white transition-colors focus:border-neutral-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:text-base"
         />
-        <button
-          type="button"
-          onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
-          className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:bg-neutral-700 lg:text-base"
-        >
-          {isEditing ? "Save" : "Edit"}
-        </button>
-        {isEditing && (
+        <div className="flex shrink-0 items-center gap-2">
           <button
             type="button"
-            onClick={handleCancel}
-            className="rounded-md border border-neutral-600 bg-neutral-800 px-6 py-2 text-sm hover:bg-neutral-700 lg:text-base"
+            onClick={() => (isEditing ? handleSave() : setIsEditing(true))}
+            className="flex-1 rounded-md border border-neutral-600 bg-neutral-800 px-5 py-2 text-xs font-medium transition hover:border-neutral-400 hover:bg-neutral-700 sm:flex-none sm:text-sm"
           >
-            Cancel
+            {isEditing ? "Save" : "Edit"}
           </button>
-        )}
+          {isEditing && (
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="flex-1 rounded-md border border-neutral-600 bg-neutral-800 px-5 py-2 text-xs font-medium transition hover:border-neutral-400 hover:bg-neutral-700 sm:flex-none sm:text-sm"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </div>
       {message && (
         <p
-          className={`mt-1 text-sm ${message.type === "success" ? "text-green-400" : "text-red-400"}`}
+          className={`mt-1 text-xs sm:text-sm ${
+            message.type === "success" ? "text-green-400" : "text-red-400"
+          }`}
         >
           {message.text}
         </p>
