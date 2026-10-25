@@ -16,11 +16,13 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
-  // Close mobile menu on route change
-  useEffect(() => {
+  // Close mobile menu on route change during render to avoid cascading renders
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setMenuOpen(false);
-  }, [pathname]);
+  }
 
   // Close mobile menu if window is resized to desktop breakpoint
   useEffect(() => {

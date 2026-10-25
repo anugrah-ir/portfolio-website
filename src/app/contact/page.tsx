@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import SocialLinks from "@/components/SocialLinks";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with Anugrah Ilhami Rizki for software development projects, collaboration, or inquiries.",
+};
 
 export default function Contact() {
   return (

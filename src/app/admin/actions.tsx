@@ -1,5 +1,5 @@
 "use server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import prisma from "../../../lib/prisma";
 import { put } from "@vercel/blob";
 
@@ -14,20 +14,27 @@ async function saveFile(file: File) {
   return blob.url;
 }
 
-export async function getSite() {
-  try {
-    const site = await prisma.site.findFirst({
-      select: {
-        title: true,
-        description: true,
-        favicon: true,
-      },
-    });
-    return { success: true, site };
-  } catch (error) {
-    return { success: false };
+export const getSite = unstable_cache(
+  async () => {
+    try {
+      const site = await prisma.site.findFirst({
+        select: {
+          title: true,
+          description: true,
+          favicon: true,
+        },
+      });
+      return { success: true, site };
+    } catch (error) {
+      return { success: false };
+    }
+  },
+  ["site-metadata"],
+  {
+    tags: ["site-metadata"],
+    revalidate: 3600,
   }
-}
+);
 
 export async function updateSite(key: string, value: string) {
   try {
@@ -44,30 +51,15 @@ export async function updateSite(key: string, value: string) {
       return { success: false };
     }
 
+    revalidateTag("site-metadata", "max");
     revalidatePath("/admin");
+    revalidatePath("/", "layout");
 
     return { success: true };
   } catch (error) {
     return { success: false };
   }
 }
-
-// export async function uploadFile(formData: FormData) {
-//   const file = formData.get("file") as File;
-
-//   if (!file) {
-//     throw new Error("No file provided");
-//   }
-
-//   const timestamp = Date.now();
-//   const filename = `${timestamp}-${file.name}`;
-
-//   const blob = await put(filename, file, {
-//     access: "public",
-//   });
-
-//   return blob.url;
-// }
 
 export async function updateFavicon(formData: FormData) {
   const file = formData.get("file") as File;
@@ -92,7 +84,9 @@ export async function updateFavicon(formData: FormData) {
       return { success: false };
     }
 
+    revalidateTag("site-metadata", "max");
     revalidatePath("/admin");
+    revalidatePath("/", "layout");
 
     return { success: true, data: url };
   } catch (error) {

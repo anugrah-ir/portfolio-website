@@ -20,16 +20,22 @@ export default function Home() {
         </div>
 
         {/* Right Side Image */}
-        <div
-          className="relative mt-8 flex h-56 w-56 items-center justify-center rounded-2xl bg-cover bg-center shrink-0 sm:h-72 sm:w-72 md:mt-0 md:h-80 md:w-80 lg:h-96 lg:w-96"
-          style={{ backgroundImage: "url('/profile-background.png')" }}
-        >
+        <div className="relative mt-8 flex h-56 w-56 items-center justify-center overflow-hidden rounded-2xl shrink-0 sm:h-72 sm:w-72 md:mt-0 md:h-80 md:w-80 lg:h-96 lg:w-96">
+          <Image
+            src="/profile-background.png"
+            alt=""
+            fill
+            sizes="(max-width: 640px) 224px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
+            preload
+            className="rounded-2xl object-cover"
+            aria-hidden="true"
+          />
           <Image
             src={siteData.author.avatar}
             alt={siteData.author.name}
             fill
             sizes="(max-width: 640px) 224px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
-            priority
+            preload
             className="rounded-full object-cover shadow-2xl"
           />
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Form from "next/form";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { sendEmail } from "@/app/contact/actions";
 import { z } from "zod";
@@ -41,14 +41,10 @@ function SubmitButton() {
 }
 
 export default function ContactForm() {
+  const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<ValidationErrors>({});
-  const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
 
   async function handleSubmit(formData: FormData) {
     setErrors({});
@@ -82,6 +78,7 @@ export default function ContactForm() {
       if (result?.success) {
         setStatus("success");
         setMessage("✅ Your message has been sent successfully!");
+        formRef.current?.reset();
       } else {
         setStatus("error");
         setMessage("❌ Failed to send your message. Please try again.");
@@ -94,6 +91,7 @@ export default function ContactForm() {
 
   return (
     <Form
+      ref={formRef}
       action={handleSubmit}
       className="flex w-full max-w-lg flex-col items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl sm:gap-5 sm:rounded-3xl sm:p-7 md:p-8 lg:w-[46%]"
     >
@@ -109,10 +107,6 @@ export default function ContactForm() {
           name="name"
           type="text"
           required={true}
-          value={formValues.name}
-          onChange={(e) =>
-            setFormValues({ ...formValues, name: e.target.value })
-          }
           className="w-full rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.name && (
@@ -128,10 +122,6 @@ export default function ContactForm() {
           name="email"
           type="email"
           required={true}
-          value={formValues.email}
-          onChange={(e) =>
-            setFormValues({ ...formValues, email: e.target.value })
-          }
           className="w-full rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.email && (
@@ -147,10 +137,6 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required={true}
-          value={formValues.message}
-          onChange={(e) =>
-            setFormValues({ ...formValues, message: e.target.value })
-          }
           className="w-full resize-none rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.message && (

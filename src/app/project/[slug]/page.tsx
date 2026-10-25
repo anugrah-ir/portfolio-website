@@ -1,23 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ArrowUpRight, Cpu } from "lucide-react";
 import Slider from "@/components/Slider";
 import KeyFeatures from "@/components/KeyFeatures";
 import siteData from "@/data/siteData.json";
-
-interface Project {
-  title: string;
-  slug: string;
-  description: string;
-  githubRepo: string;
-  liveDemo: string;
-  images: string[];
-  techStack: string[];
-  keyFeatures: {
-    feature: string;
-    description: string;
-  }[];
-}
 
 interface PageProps {
   params: Promise<{
@@ -25,11 +13,47 @@ interface PageProps {
   }>;
 }
 
+export function generateStaticParams() {
+  return siteData.projects.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = siteData.projects.find((p) => p.slug === slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    };
+  }
+
+  return {
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: `${project.title} | Anugrah Ilhami Rizki`,
+      description: project.description,
+      images:
+        project.images.length > 0
+          ? [
+              project.images[0].startsWith("/")
+                ? project.images[0]
+                : `/${project.images[0]}`,
+            ]
+          : undefined,
+    },
+  };
+}
+
 export default async function Project({ params }: PageProps) {
   const { slug } = await params;
   const project = siteData.projects.find((p) => p.slug === slug);
   if (!project) {
-    return <h1>Project not found</h1>;
+    notFound();
   }
 
   return (

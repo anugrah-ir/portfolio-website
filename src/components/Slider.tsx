@@ -35,7 +35,7 @@ export default function Slider({ images, title }: SliderProps) {
                 fill={true}
                 sizes="(max-width: 1024px) 100vw, 1024px"
                 alt={`${title} screenshot ${index + 1}`}
-                priority={index === 0}
+                preload={index === 0}
                 className="object-cover"
               />
             </div>

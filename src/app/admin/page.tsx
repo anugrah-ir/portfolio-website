@@ -1,4 +1,3 @@
-import prisma from "../../../lib/prisma";
 import SiteForm from "@/components/SiteForm";
 import { getSite } from "./actions";
 

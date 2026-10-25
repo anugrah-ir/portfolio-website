@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import siteData from "@/data/siteData.json";
+
+export const metadata: Metadata = {
+  title: "About Me",
+  description: siteData.author.bio,
+};
 
 export default function About() {
   return (
@@ -10,16 +16,22 @@ export default function About() {
 
       <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 md:flex-row md:items-center">
         {/* Left column: Profile picture */}
-        <div
-          className="relative flex h-40 w-40 shrink-0 items-center justify-center rounded-full bg-cover bg-center sm:h-48 sm:w-48"
-          style={{ backgroundImage: "url('/profile-background.png')" }}
-        >
+        <div className="relative flex h-40 w-40 shrink-0 items-center justify-center overflow-hidden rounded-full sm:h-48 sm:w-48">
+          <Image
+            src="/profile-background.png"
+            alt=""
+            fill
+            sizes="(max-width: 640px) 160px, 192px"
+            preload
+            className="rounded-full object-cover"
+            aria-hidden="true"
+          />
           <Image
             src="/me.png"
             alt="My profile picture"
             fill
             sizes="(max-width: 640px) 160px, 192px"
-            priority
+            preload
             className="rounded-full object-cover shadow-lg"
           />
         </div>
