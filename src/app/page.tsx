@@ -14,7 +14,7 @@ export default function Home() {
             I&apos;m {siteData.author.nickName}
           </h1>
           <h2 className="text-xl font-semibold text-neutral-300 sm:text-2xl lg:text-4xl">
-            {siteData.author.role}
+            I&apos;m a {siteData.author.role}
           </h2>
         </div>
 
