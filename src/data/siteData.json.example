@@ -9,7 +9,6 @@
     "nickName": "John",
     "role": "Fullstack Developer",
     "bio": "I'm a fullstack developer 3 years of work experience.",
-    "avatar": "/me.png",
     "social": {
       "email": "mailto:johndoe@gmail.com",
       "whatsapp": "https://wa.me/123456789",

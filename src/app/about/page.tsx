@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import siteData from "@/data/siteData.json";
 
 export const metadata: Metadata = {
@@ -10,55 +9,41 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12 md:py-16">
-      <h1 className="mb-8 text-center text-3xl font-bold sm:mb-12 sm:text-4xl">
+      <h1 className="mb-8 text-center text-3xl font-bold tracking-tight sm:mb-12 sm:text-4xl">
         About Me
       </h1>
 
-      <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 md:flex-row md:items-center">
-        {/* Left column: Profile picture */}
-        <div className="relative flex h-40 w-40 shrink-0 items-center justify-center overflow-hidden rounded-full sm:h-48 sm:w-48">
-          <Image
-            src="/profile-background.png"
-            alt=""
-            fill
-            sizes="(max-width: 640px) 160px, 192px"
-            preload
-            className="rounded-full object-cover"
-            aria-hidden="true"
-          />
-          <Image
-            src="/me.png"
-            alt="My profile picture"
-            fill
-            sizes="(max-width: 640px) 160px, 192px"
-            preload
-            className="rounded-full object-cover shadow-lg"
-          />
-        </div>
-
-        {/* Right column: Intro text */}
-        <div className="text-center md:text-left">
-          <h2 className="text-2xl font-bold sm:text-3xl">
+      {/* Profile & Skills Card */}
+      <div className="rounded-2xl border border-neutral-800/80 bg-neutral-900/40 p-6 shadow-lg backdrop-blur-xs sm:p-8 md:p-10">
+        <div className="flex flex-col gap-2 sm:gap-3">
+          <div className="inline-flex w-fit items-center rounded-full border border-neutral-700/60 bg-neutral-800/80 px-3.5 py-1 text-xs font-medium text-neutral-300 sm:text-sm">
+            {siteData.author.role}
+          </div>
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             {siteData.author.name}
           </h2>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-neutral-300 sm:mt-4 sm:text-lg">
-            {siteData.author.bio}
-          </p>
         </div>
-      </div>
 
-      {/* Skills section */}
-      <div className="mt-10 sm:mt-12 md:mt-16">
-        <h3 className="mb-4 text-xl font-semibold sm:text-2xl">Tech Stack</h3>
-        <div className="flex flex-wrap gap-2 sm:gap-3">
-          {siteData.author.techStack.map((tech, index) => (
-            <span
-              key={index}
-              className="rounded-full border border-neutral-700/60 bg-neutral-800/80 px-3.5 py-1.5 text-xs text-neutral-200 sm:px-4 sm:py-2 sm:text-sm"
-            >
-              {tech}
-            </span>
-          ))}
+        <p className="mt-4 text-base leading-relaxed text-neutral-300 sm:mt-6 sm:text-lg">
+          {siteData.author.bio}
+        </p>
+
+        {/* Divider */}
+        <div className="my-8 h-px w-full bg-neutral-800/80" />
+
+        {/* Skills section */}
+        <div>
+          <h3 className="mb-4 text-xl font-semibold sm:text-2xl">Tech Stack</h3>
+          <div className="flex flex-wrap gap-2 sm:gap-3">
+            {siteData.author.techStack.map((tech, index) => (
+              <span
+                key={index}
+                className="rounded-full border border-neutral-700/60 bg-neutral-800/80 px-3.5 py-1.5 text-xs text-neutral-200 transition-colors hover:border-neutral-500 sm:px-4 sm:py-2 sm:text-sm"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

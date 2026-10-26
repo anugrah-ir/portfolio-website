@@ -1,17 +1,16 @@
-import Image from "next/image";
+import Link from "next/link";
 import siteData from "@/data/siteData.json";
 
 export default function Home() {
   return (
     <div className="flex w-full flex-col">
       {/* Hero Section */}
-      <section className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-10 sm:px-6 sm:py-16 md:flex-row md:justify-between md:py-20 lg:min-h-[80vh]">
-        {/* Left Side Text */}
-        <div className="flex flex-col items-center space-y-2 text-center sm:space-y-4 md:items-start md:text-left">
-          <span className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+      <section className="mx-auto flex w-full max-w-4xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 md:py-28 lg:min-h-[70vh]">
+        <div className="flex flex-col items-center space-y-3 sm:space-y-4">
+          <span className="text-2xl font-bold tracking-tight text-neutral-400 sm:text-4xl lg:text-5xl">
             Hi
           </span>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
             I&apos;m {siteData.author.nickName}
           </h1>
           <h2 className="text-xl font-semibold text-neutral-300 sm:text-2xl lg:text-4xl">
@@ -19,25 +18,20 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Right Side Image */}
-        <div className="relative mt-8 flex h-56 w-56 items-center justify-center overflow-hidden rounded-2xl shrink-0 sm:h-72 sm:w-72 md:mt-0 md:h-80 md:w-80 lg:h-96 lg:w-96">
-          <Image
-            src="/profile-background.png"
-            alt=""
-            fill
-            sizes="(max-width: 640px) 224px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
-            preload
-            className="rounded-2xl object-cover"
-            aria-hidden="true"
-          />
-          <Image
-            src={siteData.author.avatar}
-            alt={siteData.author.name}
-            fill
-            sizes="(max-width: 640px) 224px, (max-width: 768px) 288px, (max-width: 1024px) 320px, 384px"
-            preload
-            className="rounded-full object-cover shadow-2xl"
-          />
+        {/* Call to Actions */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:mt-10 sm:gap-4">
+          <Link
+            href="/project"
+            className="rounded-xl border border-white bg-white px-5 py-2.5 text-sm font-medium text-neutral-950 transition hover:bg-neutral-200 sm:px-6 sm:py-3 sm:text-base"
+          >
+            View Projects
+          </Link>
+          <Link
+            href="/contact"
+            className="rounded-xl border border-neutral-700 bg-neutral-900/80 px-5 py-2.5 text-sm font-medium text-white transition hover:border-neutral-500 hover:bg-neutral-800 sm:px-6 sm:py-3 sm:text-base"
+          >
+            Get in Touch
+          </Link>
         </div>
       </section>
 
@@ -46,12 +40,14 @@ export default function Home() {
         id="about"
         className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12 md:py-16 text-left"
       >
-        <h2 className="mb-4 text-3xl font-bold sm:mb-6 sm:text-4xl lg:text-5xl">
-          About Me
-        </h2>
-        <p className="text-base leading-relaxed text-neutral-300 sm:text-lg">
-          {siteData.author.bio}
-        </p>
+        <div className="rounded-2xl border border-neutral-800/80 bg-neutral-900/40 p-6 shadow-lg backdrop-blur-xs sm:p-8 md:p-10">
+          <h2 className="mb-4 text-2xl font-bold sm:mb-6 sm:text-3xl lg:text-4xl">
+            About Me
+          </h2>
+          <p className="text-base leading-relaxed text-neutral-300 sm:text-lg">
+            {siteData.author.bio}
+          </p>
+        </div>
       </section>
     </div>
   );
