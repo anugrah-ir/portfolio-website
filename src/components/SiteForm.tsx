@@ -43,11 +43,14 @@ function UploadFileForm({ onCancel }: UploadFileFormProps) {
     formData.set("file", file);
 
     try {
-      const success = await updateFavicon(formData);
-      if (!success) {
-        setResult("An error occured while uploading the file");
+      const result = await updateFavicon(formData);
+      if (!result || !result.success) {
+        setResult(
+          result?.error || "An error occurred while uploading the file",
+        );
+        return;
       }
-      setResult(`File uploaded successfully! URL: ${success.data}`);
+      setResult(`File uploaded successfully! URL: ${result.data}`);
     } catch (error) {
       setResult(
         `Error: ${error instanceof Error ? error.message : "Unknown error"}`,
@@ -84,7 +87,13 @@ function UploadFileForm({ onCancel }: UploadFileFormProps) {
           </button>
         </div>
       </div>
-      <p className="text-sm font-medium text-green-500 sm:text-base">{result}</p>
+      <p
+        className={`text-sm font-medium sm:text-base ${
+          result.startsWith("File uploaded") ? "text-green-500" : "text-red-400"
+        }`}
+      >
+        {result}
+      </p>
     </Form>
   );
 }

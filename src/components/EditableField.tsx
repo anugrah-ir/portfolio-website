@@ -23,15 +23,19 @@ export default function EditableField({
 
   const handleSave = async () => {
     try {
-      const success = await updateSite(name, value);
-      if (!success) {
-        setMessage({ type: "error", text: `Failed to save ${name}` });
+      const result = await updateSite(name, value);
+      if (!result?.success) {
+        setMessage({
+          type: "error",
+          text: result?.error || `Failed to save ${label}`,
+        });
+        return;
       }
 
       setIsEditing(false);
       setMessage({ type: "success", text: `${label} saved successfully` });
     } catch (error) {
-      setMessage({ type: "error", text: `Failed to save ${name}` });
+      setMessage({ type: "error", text: `Failed to save ${label}` });
     }
   };
 

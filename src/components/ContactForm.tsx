@@ -81,7 +81,11 @@ export default function ContactForm() {
         formRef.current?.reset();
       } else {
         setStatus("error");
-        setMessage("❌ Failed to send your message. Please try again.");
+        setMessage(
+          result?.error
+            ? `❌ ${result.error}`
+            : "❌ Failed to send your message. Please try again.",
+        );
       }
     } catch (error) {
       setStatus("error");
@@ -95,6 +99,17 @@ export default function ContactForm() {
       action={handleSubmit}
       className="flex w-full max-w-lg flex-col items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl sm:gap-5 sm:rounded-3xl sm:p-7 md:p-8 lg:w-[46%]"
     >
+      {/* Honeypot field for automated spam bots */}
+      <div className="hidden" aria-hidden="true">
+        <input
+          name="_gotcha"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+        />
+      </div>
+
       <h2 className="self-center text-lg font-semibold sm:text-xl">
         Fill Out This Form
       </h2>
