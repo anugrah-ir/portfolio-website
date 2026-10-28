@@ -39,6 +39,9 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
     },
+    verification: {
+      google: "rRKtx8q1aru_KTmZi0HtAiApQeH5UoXzIa-w_yWHyFs",
+    },
   };
 }
 
