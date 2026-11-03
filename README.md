@@ -1,36 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anugrah Ilhami Rizki - Portfolio Website
 
-## Getting Started
+A modern, responsive, high-performance portfolio website built with Next.js (App Router & Turbopack), React 19, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Live Demo
+
+- **Website:** [https://anugrahilhamirizki.vercel.app](https://anugrahilhamirizki.vercel.app)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org) (v16 App Router with Turbopack)
+- **UI & Runtime:** [React 19](https://react.dev) & [TypeScript](https://www.typescriptlang.org)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com) with CSS variables & `@theme`
+- **Typography:** [Geist Font](https://vercel.com/font) (`GeistSans`, `GeistMono`)
+- **Database & ORM:** [PostgreSQL](https://www.postgresql.org) via [Prisma ORM](https://www.prisma.io) with `@prisma/adapter-pg`
+- **Media Storage:** [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)
+- **Analytics:** [Vercel Analytics](https://vercel.com/analytics)
+- **Email Delivery:** [Nodemailer](https://nodemailer.com)
+- **Validation:** [Zod](https://zod.dev)
+- **Carousels & Sliders:** [Swiper](https://swiperjs.com)
+- **Icons:** [Lucide React](https://lucide.dev)
+
+---
+
+## ✨ Features
+
+- **Responsive Mobile-First UI:** Fluid, accessible layouts crafted with Tailwind CSS v4, optimized for mobile, tablet, and desktop viewports.
+- **Dynamic Project Showcase:** Interactive project showcase with Swiper carousel, image sliders, key feature accordions, and tech stack badges.
+- **Contact Form with Spam & Abuse Protection:**
+  - Automated bot mitigation using an invisible honeypot field.
+  - In-memory IP rate limiting (3 submissions per 10 minutes) with automatic capacity eviction.
+  - CRLF / SMTP header injection protection and strict Zod validation.
+  - Direct email dispatch to inbox via Nodemailer.
+- **Admin CMS Dashboard (`/admin`):**
+  - Secured via timing-safe constant-time authentication and IP rate limiting (5 attempts per 15 minutes).
+  - Manage site metadata (title, description).
+  - Upload custom favicons directly to Vercel Blob storage with SVG sanitization and file extension validation.
+  - Tag-based on-demand cache revalidation (`revalidateTag`, `revalidatePath`).
+- **Comprehensive SEO & Performance:**
+  - Dynamic `sitemap.xml` and `robots.txt` route handlers.
+  - Canonical URLs, OpenGraph, and Twitter Cards across all pages.
+  - Next.js Turbopack image optimization with AVIF and WebP formats.
+  - Strict Content Security Policy (CSP) and HTTP security headers (`X-Frame-Options`, `nosniff`, `Permissions-Policy`, `HSTS`).
+  - Branded SVG site icons.
+- **Accessibility (a11y):**
+  - Skip-to-content keyboard bypass link.
+  - Form field associations, autocomplete attributes, and ARIA live regions for status announcements.
+  - Accessible accordion controls with `aria-expanded` and `aria-controls`.
+  - Escape key dismiss on mobile navigation drawer.
+- **Custom Error Handling:** Branded 404 Not Found and client-side Error Boundary pages.
+
+---
+
+## 📁 Project Structure
+
+```text
+├── lib/
+│   ├── auth.ts          # Admin session verification & timing-safe constant-time auth
+│   ├── prisma.ts        # Prisma client instance with pg connection pool
+│   └── rateLimit.ts     # In-memory sliding-window IP rate limiter
+├── prisma/
+│   ├── schema.prisma    # Database models (Site, Author, Social, Project, etc.)
+│   └── seed.ts          # Database seed script
+├── public/              # Static assets & screenshots
+├── src/
+│   ├── app/
+│   │   ├── about/       # About page
+│   │   ├── admin/       # Admin CMS dashboard & Server Actions
+│   │   ├── contact/     # Contact form page & email dispatch action
+│   │   ├── project/     # Project list & dynamic slug pages
+│   │   ├── error.tsx    # Runtime error boundary page
+│   │   ├── not-found.tsx# Custom 404 page
+│   │   ├── layout.tsx   # Root layout, fonts, and global metadata
+│   │   ├── page.tsx     # Homepage / Hero section
+│   │   ├── robots.ts    # Search engine robots.txt route
+│   │   └── sitemap.ts   # Dynamic XML sitemap route
+│   ├── components/      # Reusable React components (Navbar, Footer, ContactForm, etc.)
+│   └── data/
+│       └── siteData.json# Static site & author configuration data
+├── next.config.ts       # Security headers, remote patterns, image settings
+└── package.json
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` (or `.env.local`) file in the project root with the following variables:
+
+| Variable | Description |
+| :--- | :--- |
+| `POSTGRES_URL` | PostgreSQL connection string for Prisma. |
+| `ADMIN_SECRET` | Secret passcode required to unlock the `/admin` dashboard. |
+| `EMAIL_SENDER` | Sender email address (e.g., Gmail) used by Nodemailer. |
+| `EMAIL_PASS` | App password for the sender email address. |
+| `EMAIL_RECEIVER` | Destination email address to receive contact form submissions. |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob read/write token for media uploads. |
+| `NEXT_PUBLIC_SITE_URL` | Base canonical domain (e.g., `https://anugrahilhamirizki.vercel.app`). |
+
+---
+
+## 🏃 Getting Started
+
+### Prerequisites
+
+- Node.js 18.18+ or 20+
+- npm / pnpm / yarn / bun
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### 3. Start development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📜 Available Scripts
 
-## Learn More
+| Script | Command | Description |
+| :--- | :--- | :--- |
+| `npm run dev` | `next dev --turbopack` | Starts local development server with Turbopack |
+| `npm run build` | `next build --turbopack` | Creates optimized production build |
+| `npm run start` | `next start` | Starts production server |
+| `npm run lint` | `eslint .` | Runs ESLint over the project |
+| `npm run typecheck` | `tsc --noEmit` | Validates TypeScript types across the codebase |
+| `npm run format` | `prettier --write .` | Formats all files with Prettier |
+| `npm run format:check`| `prettier --check .` | Verifies code formatting |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📝 Commit Conventions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project adheres to the [Conventional Commits](https://www.conventionalcommits.org/) specification (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, etc.) for transparent change history.
