@@ -1,8 +1,10 @@
 "use server";
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { headers } from "next/headers";
 import prisma from "../../../lib/prisma";
 import { put } from "@vercel/blob";
 import { verifyAdminSession, loginAdmin, logoutAdmin } from "../../../lib/auth";
+import { isRateLimited } from "../../../lib/rateLimit";
 
 const ALLOWED_MIME_TYPES = new Set([
   "image/x-icon",
@@ -109,6 +111,23 @@ export const getSite = unstable_cache(
 );
 
 export async function adminLogin(passcode: string) {
+  const headerList = await headers();
+  const forwardedFor = headerList.get("x-forwarded-for");
+  const realIp = headerList.get("x-real-ip");
+  const clientIp = forwardedFor?.split(",")[0]?.trim() || realIp || "127.0.0.1";
+
+  const rateLimitStatus = isRateLimited(
+    `admin-login:${clientIp}`,
+    5,
+    15 * 60 * 1000,
+  );
+  if (rateLimitStatus.limited) {
+    return {
+      success: false,
+      error: `Too many login attempts. Please wait ${rateLimitStatus.resetInSeconds} seconds before trying again.`,
+    };
+  }
+
   const result = await loginAdmin(passcode);
   if (result.success) {
     revalidatePath("/admin");

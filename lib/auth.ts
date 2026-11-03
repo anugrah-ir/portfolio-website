@@ -11,10 +11,9 @@ function getExpectedToken(secret: string): string {
 }
 
 function safeCompare(a: string, b: string): boolean {
-  if (a.length !== b.length) {
-    return false;
-  }
-  return crypto.timingSafeEqual(Buffer.from(a), Buffer.from(b));
+  const hashA = crypto.createHash("sha256").update(a).digest();
+  const hashB = crypto.createHash("sha256").update(b).digest();
+  return crypto.timingSafeEqual(hashA, hashB);
 }
 
 export async function verifyAdminSession(): Promise<{
@@ -61,12 +60,9 @@ export async function loginAdmin(
     return { success: false, error: "Passcode is required." };
   }
 
-  const secretBuffer = Buffer.from(secret);
-  const passcodeBuffer = Buffer.from(passcode);
-
-  const isValid =
-    secretBuffer.length === passcodeBuffer.length &&
-    crypto.timingSafeEqual(secretBuffer, passcodeBuffer);
+  const secretHash = crypto.createHash("sha256").update(secret).digest();
+  const passcodeHash = crypto.createHash("sha256").update(passcode).digest();
+  const isValid = crypto.timingSafeEqual(secretHash, passcodeHash);
 
   if (!isValid) {
     return { success: false, error: "Invalid admin passcode." };
