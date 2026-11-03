@@ -6,6 +6,15 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "Explore recent applications, systems, and software solutions created by Anugrah Ilhami Rizki.",
+  alternates: {
+    canonical: "/project",
+  },
+  openGraph: {
+    title: `Projects | ${siteData.author.name}`,
+    description:
+      "Explore recent applications, systems, and software solutions created by Anugrah Ilhami Rizki.",
+    url: "/project",
+  },
 };
 
 export default function Project() {
@@ -24,4 +33,3 @@ export default function Project() {
     </div>
   );
 }
-

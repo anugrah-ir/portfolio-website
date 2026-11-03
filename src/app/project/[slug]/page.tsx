@@ -34,9 +34,13 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.description,
+    alternates: {
+      canonical: `/project/${project.slug}`,
+    },
     openGraph: {
       title: `${project.title} | Anugrah Ilhami Rizki`,
       description: project.description,
+      url: `/project/${project.slug}`,
       images:
         project.images.length > 0
           ? [

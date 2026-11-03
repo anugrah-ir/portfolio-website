@@ -4,6 +4,14 @@ import siteData from "@/data/siteData.json";
 export const metadata: Metadata = {
   title: "About Me",
   description: siteData.author.bio,
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: `About Me | ${siteData.author.name}`,
+    description: siteData.author.bio,
+    url: "/about",
+  },
 };
 
 export default function About() {
@@ -49,4 +57,3 @@ export default function About() {
     </div>
   );
 }
-

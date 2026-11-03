@@ -16,20 +16,43 @@ export async function generateMetadata(): Promise<Metadata> {
     success && site?.description ? site.description : siteData.site.description;
   const favicon =
     success && site?.favicon ? site.favicon : siteData.site.favicon;
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://anugrahilhamirizki.vercel.app";
 
   return {
-    metadataBase: new URL("https://anugrahilhamirizki.vercel.app"),
+    metadataBase: new URL(siteUrl),
     title: {
       default: title,
       template: `%s | ${title}`,
     },
     description,
+    keywords: [
+      "Fullstack Developer",
+      "Software Engineer",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Web Development",
+      siteData.author.name,
+    ],
+    authors: [{ name: siteData.author.name, url: siteUrl }],
+    creator: siteData.author.name,
+    alternates: {
+      canonical: "/",
+    },
     icons: {
-      icon: favicon,
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+        { url: favicon },
+      ],
     },
     openGraph: {
       title,
       description,
+      url: siteUrl,
       type: "website",
       locale: "en_US",
       siteName: title,
@@ -38,6 +61,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
+      creator: "@anugrahir",
     },
     verification: {
       google: "rRKtx8q1aru_KTmZi0HtAiApQeH5UoXzIa-w_yWHyFs",

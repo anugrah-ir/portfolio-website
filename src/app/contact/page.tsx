@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import SocialLinks from "@/components/SocialLinks";
+import siteData from "@/data/siteData.json";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch with Anugrah Ilhami Rizki for software development projects, collaboration, or inquiries.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: `Contact | ${siteData.author.name}`,
+    description:
+      "Get in touch with Anugrah Ilhami Rizki for software development projects, collaboration, or inquiries.",
+    url: "/contact",
+  },
 };
 
 export default function Contact() {
