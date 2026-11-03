@@ -24,15 +24,26 @@ export default function Navbar() {
     setMenuOpen(false);
   }
 
-  // Close mobile menu if window is resized to desktop breakpoint
+  // Close mobile menu on Escape key press or window resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setMenuOpen(false);
       }
     };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
@@ -48,7 +59,10 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 text-base font-light md:flex lg:gap-10 lg:text-lg">
+        <nav
+          className="hidden items-center gap-6 text-base font-light md:flex lg:gap-10 lg:text-lg"
+          aria-label="Desktop navigation"
+        >
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -67,6 +81,7 @@ export default function Navbar() {
           type="button"
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
           className="flex p-2 text-neutral-300 transition-colors hover:text-white md:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
         >
@@ -77,6 +92,7 @@ export default function Navbar() {
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <nav
+          id="mobile-navigation"
           className="border-t border-neutral-800/80 bg-neutral-950/95 px-6 py-6 shadow-2xl backdrop-blur-xl md:hidden"
           aria-label="Mobile navigation"
         >
@@ -101,4 +117,3 @@ export default function Navbar() {
     </header>
   );
 }
-

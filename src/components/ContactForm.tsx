@@ -9,11 +9,13 @@ import { z } from "zod";
 const contactFormSchema = z.object({
   name: z
     .string()
+    .trim()
     .min(1, "Name is required")
     .min(2, "Name must be at least 2 characters"),
-  email: z.email("Please enter a valid email address"),
+  email: z.string().trim().email("Please enter a valid email address"),
   message: z
     .string()
+    .trim()
     .min(1, "Message is required")
     .min(10, "Message must be at least 10 characters"),
 });
@@ -52,9 +54,9 @@ export default function ContactForm() {
     setMessage("");
 
     const formValues = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      message: formData.get("message") as string,
+      name: ((formData.get("name") as string) || "").trim(),
+      email: ((formData.get("email") as string) || "").trim(),
+      message: ((formData.get("message") as string) || "").trim(),
     };
 
     try {
@@ -87,7 +89,7 @@ export default function ContactForm() {
             : "❌ Failed to send your message. Please try again.",
         );
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setMessage("❌ Something went wrong while sending your message.");
     }
@@ -98,6 +100,7 @@ export default function ContactForm() {
       ref={formRef}
       action={handleSubmit}
       className="flex w-full max-w-lg flex-col items-start gap-4 rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl sm:gap-5 sm:rounded-3xl sm:p-7 md:p-8 lg:w-[46%]"
+      noValidate
     >
       {/* Honeypot field for automated spam bots */}
       <div className="hidden" aria-hidden="true">
@@ -115,47 +118,71 @@ export default function ContactForm() {
       </h2>
 
       <div className="flex w-full flex-col gap-1.5 sm:gap-2">
-        <label className="text-sm font-medium text-neutral-200 sm:text-base">
+        <label
+          htmlFor="contact-name"
+          className="text-sm font-medium text-neutral-200 sm:text-base"
+        >
           Name
         </label>
         <input
+          id="contact-name"
           name="name"
           type="text"
-          required={true}
+          required
+          autoComplete="name"
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? "name-error" : undefined}
           className="w-full rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.name && (
-          <p className="mt-1 text-xs text-red-500 sm:text-sm">{errors.name}</p>
+          <p id="name-error" className="mt-1 text-xs text-red-500 sm:text-sm">
+            {errors.name}
+          </p>
         )}
       </div>
 
       <div className="flex w-full flex-col gap-1.5 sm:gap-2">
-        <label className="text-sm font-medium text-neutral-200 sm:text-base">
+        <label
+          htmlFor="contact-email"
+          className="text-sm font-medium text-neutral-200 sm:text-base"
+        >
           Email
         </label>
         <input
+          id="contact-email"
           name="email"
           type="email"
-          required={true}
+          required
+          autoComplete="email"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
           className="w-full rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.email && (
-          <p className="mt-1 text-xs text-red-500 sm:text-sm">{errors.email}</p>
+          <p id="email-error" className="mt-1 text-xs text-red-500 sm:text-sm">
+            {errors.email}
+          </p>
         )}
       </div>
 
       <div className="flex w-full flex-col gap-1.5 sm:gap-2">
-        <label className="text-sm font-medium text-neutral-200 sm:text-base">
+        <label
+          htmlFor="contact-message"
+          className="text-sm font-medium text-neutral-200 sm:text-base"
+        >
           Message
         </label>
         <textarea
+          id="contact-message"
           name="message"
           rows={5}
-          required={true}
+          required
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "message-error" : undefined}
           className="w-full resize-none rounded-md border border-neutral-700 bg-neutral-950/60 p-2 text-sm transition-colors focus:border-neutral-400 focus:outline-none sm:p-2.5 sm:text-base"
         />
         {errors.message && (
-          <p className="mt-1 text-xs text-red-500 sm:text-sm">
+          <p id="message-error" className="mt-1 text-xs text-red-500 sm:text-sm">
             {errors.message}
           </p>
         )}
@@ -165,6 +192,8 @@ export default function ContactForm() {
 
       {status !== "idle" && (
         <p
+          role="status"
+          aria-live="polite"
           className={`mt-2 self-center text-center text-xs sm:text-sm ${
             status === "success" ? "text-green-500" : "text-red-500"
           }`}

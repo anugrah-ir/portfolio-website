@@ -66,25 +66,31 @@ export default async function Project({ params }: PageProps) {
           {project.title}
         </h1>
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-          <Link
-            href={project.githubRepo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-row items-center justify-center gap-2 rounded-xl border border-neutral-700 bg-neutral-900/80 px-3 py-2 text-xs font-medium text-neutral-200 transition hover:border-neutral-400 hover:bg-neutral-800 sm:text-sm"
-          >
-            <Image src="/github.png" width={18} height={18} alt="GitHub logo" />
-            <span>GitHub</span>
-            <ArrowUpRight size={16} />
-          </Link>
-          <Link
-            href={project.liveDemo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-row items-center justify-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs font-semibold text-neutral-950 transition hover:bg-neutral-200 sm:text-sm"
-          >
-            <span>Live Demo</span>
-            <ArrowUpRight size={16} />
-          </Link>
+          {project.githubRepo && (
+            <Link
+              href={project.githubRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View ${project.title} repository on GitHub`}
+              className="flex flex-row items-center justify-center gap-2 rounded-xl border border-neutral-700 bg-neutral-900/80 px-3 py-2 text-xs font-medium text-neutral-200 transition hover:border-neutral-400 hover:bg-neutral-800 sm:text-sm"
+            >
+              <Image src="/github.png" width={18} height={18} alt="GitHub logo" />
+              <span>GitHub</span>
+              <ArrowUpRight size={16} />
+            </Link>
+          )}
+          {project.liveDemo && (
+            <Link
+              href={project.liveDemo}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit live demo for ${project.title}`}
+              className="flex flex-row items-center justify-center gap-2 rounded-xl bg-white px-3.5 py-2 text-xs font-semibold text-neutral-950 transition hover:bg-neutral-200 sm:text-sm"
+            >
+              <span>Live Demo</span>
+              <ArrowUpRight size={16} />
+            </Link>
+          )}
         </div>
       </header>
 

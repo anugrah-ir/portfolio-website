@@ -20,16 +20,26 @@ export default function KeyFeatures({ keyFeatures }: KeyFeaturesProps) {
   };
 
   return (
-    <section id="key-features" className="flex w-full flex-col gap-3 sm:gap-4">
+    <section
+      id="key-features"
+      aria-labelledby="key-features-heading"
+      className="flex w-full flex-col gap-3 sm:gap-4"
+    >
       <div className="flex flex-row items-center gap-2.5 sm:gap-3">
         <Sparkles className="h-5 w-5 text-neutral-300 sm:h-6 sm:w-6 lg:h-7 lg:w-7" />
-        <h2 className="text-base font-semibold sm:text-xl lg:text-2xl">
+        <h2
+          id="key-features-heading"
+          className="text-base font-semibold sm:text-xl lg:text-2xl"
+        >
           Key Features
         </h2>
       </div>
       <ul className="w-full max-w-3xl rounded-xl border border-neutral-800 bg-neutral-900 text-neutral-200">
         {keyFeatures.map((keyFeature, index) => {
           const isOpen = openIndices.includes(index);
+          const buttonId = `key-feature-btn-${index}`;
+          const contentId = `key-feature-content-${index}`;
+
           return (
             <li
               key={index}
@@ -37,6 +47,9 @@ export default function KeyFeatures({ keyFeatures }: KeyFeaturesProps) {
             >
               <button
                 type="button"
+                id={buttonId}
+                aria-expanded={isOpen}
+                aria-controls={contentId}
                 onClick={() => toggleIndex(index)}
                 className="flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-neutral-800/50 sm:gap-4 sm:py-3.5"
               >
@@ -51,6 +64,9 @@ export default function KeyFeatures({ keyFeatures }: KeyFeaturesProps) {
               </button>
 
               <div
+                id={contentId}
+                role="region"
+                aria-labelledby={buttonId}
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
                   isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
