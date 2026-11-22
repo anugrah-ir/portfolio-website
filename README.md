@@ -130,6 +130,27 @@ Visit [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
+## 🚀 Deployment
+
+The repository is configured for dual-deployment support: it can be deployed seamlessly to **Vercel** or self-hosted via **Coolify** / **Docker** without breaking either setup.
+
+### Option A: Vercel
+
+1. Push your repository to GitHub / GitLab / Bitbucket.
+2. Import the repository into your [Vercel Dashboard](https://vercel.com/dashboard).
+3. Set the Environment Variables (`POSTGRES_URL`, `ADMIN_SECRET`, `BLOB_READ_WRITE_TOKEN`, `EMAIL_*`, `NEXT_PUBLIC_SITE_URL`).
+4. Click **Deploy**. Next.js will build natively with edge/serverless optimizations.
+
+### Option B: Coolify (Self-Hosted Docker)
+
+1. In your Coolify dashboard, create a new **Application** from your Git repository.
+2. Select **Dockerfile** as the Build Pack (Coolify will detect the multi-stage `Dockerfile`).
+3. Set **Port Exposes** to `3000`.
+4. Add your Environment Variables in Coolify's **Environment Variables** tab.
+5. Click **Deploy**. The optimized standalone container will be built and served.
+
+---
+
 ## 📜 Available Scripts
 
 | Script | Command | Description |
